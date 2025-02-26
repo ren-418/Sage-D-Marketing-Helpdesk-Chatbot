@@ -141,7 +141,7 @@ export default function Header() {
           }`}
       >
         <div
-          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 bg-[#1D1D1B] ${scrolling ? "py-[10px]" : ""
+          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 bg-transparent ${scrolling ? "py-[10px]" : ""
             }`}
         >
           <div>

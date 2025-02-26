@@ -12,6 +12,7 @@ import Stripe from '../../assets/images/stripe-brand.png'
 import Tinder from '../../assets/images/tinder-dark.png'
 import Trello from '../../assets/images/trello.png'
 import Zoom from '../../assets/images/zoom-dark.png'
+import bg from '../../assets/images/bg.png'
 
 export default function Home() {
 
@@ -57,7 +58,7 @@ export default function Home() {
   return (
     <>
       <div className="h-screen">
-        <section className="flex flex-col items-start md:gap-10 gap-5 justify-start lg:px-32 px-5 md:px-10 w-full h-full bg-[#1D1D1B]">
+        <section className="flex flex-col items-start md:gap-10 gap-5 justify-start lg:px-32 px-5 md:px-10 w-full h-full bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
           <div className=" text-xl md:text-2xl mt-48 md:mt-56 font-medium px-3 py-2 rounded-xl text-[#00ff26] cursor-pointer bg-[#282826] border-[#FFFFFF1A] border">Your Brand Our Passion</div>
           <h1 className="text-white md:text-6xl text-4xl font-medium">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
           <p className="text-white text-lg md:text-xl">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
