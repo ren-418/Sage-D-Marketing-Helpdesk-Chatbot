@@ -19,7 +19,7 @@ import twitterIcon from '../../assets/icons/twitter.svg'
 export default function Header() {
   const location = useLocation();
   const [activePage, setActivePage] = useState<string>("/layouts/home");
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(false);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
@@ -39,13 +39,13 @@ export default function Header() {
   const openMobileSubmenu = (submenu: string) => {
     setMobileSubmenu(submenu);
   };
-  const closeMobileSubmenu = () => {
-    setMobileSubmenu(null);
-  };
+
 
   useEffect(() => {
     setActivePage(currentPath);
-
+    if (mobileSubmenu) {
+      setMobileSubmenu(mobileSubmenu)
+    }
     if (currentPath == "/layouts/industries-work-with") {
       setScrolling(true);
     } else {

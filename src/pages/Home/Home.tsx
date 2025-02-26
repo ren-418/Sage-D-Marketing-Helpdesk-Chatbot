@@ -1,11 +1,8 @@
 "use client";
-import { useState } from "react";
-// import Header from "./components/Header";
 import { Link } from "react-router-dom";
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
 
-import { toast } from "react-toastify";
-
+import video from '../../assets/video/Cadac GRILLOGAS.mp4'
 import Upwork from '../../assets/images/upwork-dark.png'
 import Loom from '../../assets/images/loom-dark.png'
 import Slack from '../../assets/images/slack.png'
@@ -17,43 +14,6 @@ import Trello from '../../assets/images/trello.png'
 import Zoom from '../../assets/images/zoom-dark.png'
 
 export default function Home() {
-  const [zipcode, setZipcode] = useState<string>("");
-
-  function isValidZipCode(zipCode: string): boolean {
-    const zipCodePattern = /^\d{5}(-\d{4})?$/;
-    const caPattern = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
-    const usPattern = /^\d{5}(-\d{4})?$/;
-
-    return (
-      usPattern.test(zipCode) ||
-      caPattern.test(zipCode) ||
-      zipCodePattern.test(zipCode)
-    );
-  }
-
-  const goToAvailibility = (): void => {
-
-    if (!isValidZipCode(zipcode)) {
-      toast.warning("Please input correct information", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-    } else {
-      console.log(zipcode);
-      window.location.href = "/register";
-    }
-  };
-  const handleKeyPress = (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ): void => {
-    if (event.key === "Enter") {
-      goToAvailibility();
-    }
-  };
 
   const companyItems = [
     {
@@ -122,7 +82,7 @@ export default function Home() {
           </div>
           <div className="w-full flex items-center justify-center ">
             <video controls className="w-full max-w-8xl rounded-2xl">
-              <source src="your-video-file.mp4" type="video/mp4" />
+              <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
