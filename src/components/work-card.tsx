@@ -13,7 +13,7 @@ const WorkCard = (props: WorkCardProps) => {
                 <img src={props.image} alt={props.title} />
             </div>
             <div className="flex flex-col items-center justify-center">
-                <h3>{props.title}</h3>
+                <h3 className="text-black text-center md:text-3xl text-xl font-medium">{props.title}</h3>
                 <p>{props.description}</p>
             </div>
         </div>
