@@ -18,19 +18,18 @@ import twitterIcon from '../../assets/icons/twitter.svg'
 
 export default function Header() {
   const location = useLocation();
-  const [activePage, setActivePage] = useState<string>("/layouts/home");
-  
+
+
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(false);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [HoveredItem, setHoveredItem] = useState("About us");
+  const [isHome, setIsHome] = useState(false);
 
   const currentPath = window.location.pathname;
 
-  const setActive = (page: string) => {
-    setActivePage(page);
-  };
+
 
   const toggleHamburger = () => {
     setIsHamburgerOpen(!isHamburgerOpen);
@@ -42,28 +41,23 @@ export default function Header() {
 
 
   useEffect(() => {
-    setActivePage(currentPath);
+
     if (mobileSubmenu) {
       setMobileSubmenu(mobileSubmenu)
     }
-    if (currentPath == "/layouts/industries-work-with") {
-      setScrolling(true);
+    if (currentPath == "/layouts/home") {
+      setIsHome(true);
     } else {
-      setScrolling(false);
+      setIsHome(false);
     }
 
     const handleScroll = () => {
       if (window.scrollY > 90) {
         setScrolling(true);
       } else {
-        if (currentPath == "/layouts/industries-work-with") {
-          setScrolling(true);
-        } else {
-          setScrolling(false);
-        }
+        setScrolling(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
   }, [location]);
 
@@ -126,22 +120,22 @@ export default function Header() {
       icon: twitterIcon,
       link: 'https://www.twitter.com'
     }
-      
+
   ]
 
   return (
     <div>
       <header
         className={`transition-all duration-300 ease-in-out z-[30] fixed top-0 w-full border-[#FFFFFF1A] border-b ${scrolling && !isHamburgerOpen
-          ? "bg-black shadow-lg fixed top-0 w-full"
+          ? " fixed top-0 w-full"
           : ""
           } ${isHamburgerOpen
-            ? "w-full h-[100%] bg-[#38383b] flex flex-col gap-[5%] overflow-hidden fixed top-0 text-white"
+            ? "w-full h-[100%] bg-black flex flex-col gap-[5%] overflow-hidden fixed top-0 text-white"
             : ""
           }`}
       >
         <div
-          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 bg-transparent ${scrolling ? "py-[10px]" : ""
+          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 rounded-b-3xl  ${scrolling || !isHome ? "py-[10px] bg-black" : "bg-transparent"
             }`}
         >
           <div>
@@ -194,14 +188,13 @@ export default function Header() {
               {menuItems.map((item) => (
                 <li
                   key={item.key}
-                  className={`cursor-pointer relative hover:text-[#00ff26] ${activePage === item.key ? "active" : ""
-                    }`}
+                  className={`cursor-pointer relative hover:text-[#00ff26]`}
                   onClick={() => {
                     if (item.submenu) {
                       openMobileSubmenu(item.key);
                       toggleHamburger();
                     } else {
-                      setActive(item.key);
+
                       toggleHamburger();
                     }
                   }}
@@ -220,18 +213,18 @@ export default function Header() {
               ))}
             </ul>
             <div className="flex flex-col gap-6 justify-center items-center">
-                <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] font-medium flex gap-1 text-xl cursor-pointer rounded-xl px-4 py-2 ">
-                  <p>Book a call</p>
-                  <img src={arrowIcon} alt="icon" width={20} className="" />
-                </Link>
-                <div className="flex gap-4">
-                  {socialMedia.map((item) => (
-                    <Link to={item.link} className="cursor-pointer">
-                      <img src={item.icon} alt="icon" width={50} className="transition-opacity duration-300" style={{ filter: 'brightness(0) invert(1)' }} />
-                    </Link>
-                  ))}
-                </div>
+              <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+                <p>Book a call</p>
+                <img src={arrowIcon} alt="icon" width={20} className="" />
+              </Link>
+              <div className="flex gap-4">
+                {socialMedia.map((item) => (
+                  <Link to={item.link} className="cursor-pointer">
+                    <img src={item.icon} alt="icon" width={50} className="transition-opacity duration-300" style={{ filter: 'brightness(0) invert(1)' }} />
+                  </Link>
+                ))}
               </div>
+            </div>
           </div>
         )}
       </header>
@@ -256,7 +249,7 @@ export default function Header() {
                         setHoveredItem(item.name);
                       }}
                       onClick={() => {
-                        setActive(item.key);
+
                         setMenuOpen(false);
                       }}
                     >

@@ -123,11 +123,11 @@ export default function Footer() {
         <div className='text-white'>© 2025 SAGE-D Marketing. All rights reserved.</div>
       </div>
       <div className='flex flex-col gap-7'>
-        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] font-medium flex gap-1 text-xl cursor-pointer rounded-xl px-4 py-2 md:w-full w-[50%] ">
+        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[50%] md:w-full ">
           <p>Get In Touch</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>
-        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] font-medium flex gap-1 text-xl cursor-pointer rounded-xl px-4 py-2 md:w-full w-[50%] ">
+        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[50%] md:w-full">
           <p>Book a call</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>
