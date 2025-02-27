@@ -102,32 +102,32 @@ export default function Home() {
   const serviceItems = [
     {
       number: "01",
-      title: "Branding",
-      description: "Our Digital Marketing Services Utilize Cutting-Edge Strategies to Enhance Your Online Presence and Drive Targeted Traffic, Ensuring Maximum ROI and Growth for Your Brand. Our Digital Marketing Services Utilize Cutting-Edge Strategies to Enhance Your Online Presence. <br/> Partner with us to stay ahead in the digital landscape and achieve sustainable growth.",
+      title: "Comprehensive Marketing Solutions",
+      description: "Sage-D Marketing Group specializes in end-to-end marketing solutions that elevate your brand in a competitive landscape. Our innovative campaigns are tailored to captivate and convert your target audience, ensuring your message resonates effectively.",
       image: service1,
     },
     {
       number: "02",
-      title: "Website Design",
-      description: "Our Content Creation Service Seamlessly Blends Creativity and Strategy to Deliver Tailored Solutions That Captivate Audiences and Drive Meaningful Engagement, Helping Your Brand Stand Out in the Digital Landscape. <br/> Our Content Creation Service Seamlessly Blends Creativity and Strategy to Deliver Tailored Solutions.",
+      title: "Digital Presence Optimization",
+      description: "Enhance your online visibility with our expert social media and LinkedIn management services. We create engaging content and execute targeted campaigns that foster growth, drive business success, and strengthen your brand’s online presence.",
       image: service2,
     },
     {
       number: "03",
-      title: "App Design",
-      description: "Our Promotional Campaigns Are Designed to Create Buzz and Generate Interest, Effectively Reaching Your Target Audience and Boosting Your Brand’s Visibility and Sales. Our Promotional Campaigns Are Designed to Create Buzz and Generate Interest. <br/> Elevate your brand with our impactful campaigns and watch your sales soar.",
+      title: "Targeted Advertising & Analytics",
+      description: "Maximize your reach with our data-driven advertising strategies. We develop and manage targeted campaigns across multiple platforms, providing deep insights and analytics to optimize performance and drive conversions effectively.",
       image: service3,
     },
     {
       number: "04",
-      title: "SASS Development",
-      description: "Our Animated Reels Videos Bring Your Ideas to Life with Stunning Visuals and Engaging Storytelling, Perfect for Capturing Attention and Increasing Engagement on Social Media. Our Animated Reels Videos Bring Your Ideas to Life with Stunning Visuals and Engaging. <br/> Engage your audience with our captivating animated reels and drive higher engagement.",
+      title: "Creative Media Production",
+      description: "Bring your brand story to life with our professional videography and photography services. From promotional videos and corporate films to high-quality imagery, we deliver impactful visual content that enhances your brand identity and engages your audience.",
       image: service4,
     },
     {
       number: "05",
-      title: "Digital Marketing",
-      description: "Our Product Branding Services Craft a Unique Identity for Your Products, Creating a Strong, Memorable Impression That Resonates with Your Target Market and Differentiates You from Competitors. Our Product Branding Services Craft a Unique Identity for Your Products. <br/> Strengthen your brand's market position with our expert branding services and leave a lasting impact.",
+      title: "Innovative Brand Design",
+      description: "Our graphic design team crafts eye-catching branding materials tailored to your unique needs. From logos and brochures to CGI and packaging designs, we ensure your visual identity stands out and communicates your brand’s essence effectively.",
       image: service5,
     },
   ];
