@@ -1,6 +1,6 @@
 "use client";
 import { Link } from "react-router-dom";
-import WorkCard from '../../components/work-card'
+
 
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
 import video from '../../assets/video/Cadac GRILLOGAS.mp4'
