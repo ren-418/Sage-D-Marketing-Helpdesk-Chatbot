@@ -1,7 +1,8 @@
 "use client";
 import { Link } from "react-router-dom";
-import arrowIcon from '../../assets/icons/arrow-right-top.svg'
+import WorkCard from '../../components/work-card'
 
+import arrowIcon from '../../assets/icons/arrow-right-top.svg'
 import video from '../../assets/video/Cadac GRILLOGAS.mp4'
 import Upwork from '../../assets/images/upwork-dark.png'
 import Loom from '../../assets/images/loom-dark.png'

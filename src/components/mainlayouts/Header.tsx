@@ -236,7 +236,7 @@ export default function Header() {
         )}
       </header>
       {!!menuOpen && !isHamburgerOpen && (
-        <div className={`fixed top-[92px] w-full h-full bg-[#1D1D1B] transition-all duration-500 ease-in-out z-20 ${menuOpen
+        <div className={`fixed top-[132px] w-full h-full bg-[#1D1D1B] transition-all duration-500 ease-in-out z-20 ${menuOpen
           ? 'right-0'
           : 'right-[-100%]'
           }`}>
@@ -247,7 +247,7 @@ export default function Header() {
                   <div className={`${HoveredItem === item.name ? "flex" : "hidden"} absolute left-0 top-[10px]`}>
                     <img src={item.img} alt="img" width={900} className="w-full max-w-[600px] xl:max-w-[800px] 2xl:max-w-[900px] h-auto" />
                   </div>
-                  <div className="flex justify-start w-full lg:pl-[700px] 2xl:pl-[750px]">
+                  <div className="flex justify-start w-full pl-[500px] xl:pl-[700px] 2xl:pl-[750px]">
                     <Link
                       key={item.key}
                       to={item.link}
