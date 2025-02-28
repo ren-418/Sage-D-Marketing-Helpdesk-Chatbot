@@ -145,7 +145,7 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black  md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-normal">
+          <div className="relative pl-6 md:text-xl text-base">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2 "></span>
             About Sage-D Marketing
           </div>
@@ -168,7 +168,7 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-normal">
+          <div className="relative pl-6 md:text-xl text-base">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
             Our Clients
           </div>
@@ -200,7 +200,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-normal">
+        <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
           <p>View all work</p>
           <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
         </Link>
@@ -209,7 +209,7 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-normal">
+          <div className="relative pl-6 md:text-xl text-base">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
             WHAT WE DO
           </div>
@@ -222,7 +222,7 @@ export default function Home() {
             <ServiceCard key={index} number={item.number} title={item.title} description={item.description} image={item.image} />
           ))}
         </div>
-        <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-normal">
+        <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
           <p>View all services</p>
           <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
         </Link>
@@ -231,7 +231,7 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-normal">
+          <div className="relative pl-6 md:text-xl text-base">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
             How WE DO
           </div>
@@ -245,7 +245,7 @@ export default function Home() {
             Your browser does not support the video tag.
           </video>
         </div>
-        <Link to="/" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-normal">
+        <Link to="/" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
           <p>View Our Approach</p>
           <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
         </Link>

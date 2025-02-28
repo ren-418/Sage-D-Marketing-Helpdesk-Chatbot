@@ -62,8 +62,8 @@ const AboutUs = () => {
     ];
     return (
         <>
-            <section className="flex flex-col items-start md:mt-36 mt-40 w-full lg:px-32 px-5 md:px-10">
-                <div className="flex ">
+            <section className="flex flex-col items-start md:mt-36 mt-40 w-full lg:px-32 px-5 md:px-10 overflow-hidden">
+                <div className="flex transition-transform duration-300 ease-in-out">
                     {images.map((image, index) => (
                         <div key={index} className="flex-shrink-0 w-full md:w-[600px]">
                             <img
@@ -93,7 +93,7 @@ const AboutUs = () => {
             </section>
             <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
                 <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-                    <div className="relative pl-6 md:text-xl text-normal">
+                    <div className="relative pl-6 md:text-xl text-base">
                         <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
                         Our Clients
                     </div>
