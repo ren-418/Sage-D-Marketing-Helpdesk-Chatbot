@@ -77,6 +77,13 @@ export default function Header() {
       submenu: null,
     },
     {
+      name:"Freelance Editing & Post Production",
+      key: "/layouts/freelance-editing",
+      link: "/layouts/freelance-editing",
+      img: services,
+      submenu: null,
+    },
+    {
       name: "Services",
       key: "/layouts/services",
       link: "/layouts/services",
@@ -135,24 +142,24 @@ export default function Header() {
           }`}
       >
         <div
-          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 rounded-b-3xl  ${scrolling || !isHome ? "py-[10px] bg-black" : "bg-transparent"
+          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 py-6 rounded-b-3xl  ${scrolling || !isHome ? "py-[10px] bg-black" : "bg-transparent"
             }`}
         >
           <div>
-            <Link to="/" className="flex items-center gap-0">
+            <Link to="/" className="flex items-center ">
               <img
                 src={Logo}
-                width={90}
+                width={70}
                 alt="logo"
                 className={`${!scrolling && "hidden"}`}
               />
               <img
                 src={Logo}
-                width={90}
+                width={70}
                 alt="logo"
                 className={`${scrolling && "hidden"}`}
               />
-              <p className="text-white text-2xl ">Sage-D<br /> <span className="text-[#00ff26]">Marketing</span></p>
+              <div className="text-white text-xl font-medium ">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
             </Link>
           </div>
           <div className="lg:flex gap-2 hidden">

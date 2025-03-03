@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 import ServiceCard from "../../components/service-card";
 
-import aboutUsVideo from '../../assets/video/Cadac GRILLOGAS.mp4'
+
 import ApproachVideo from '../../assets/video/Marketing video 2.mp4'
 
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
@@ -31,9 +31,6 @@ import service4 from '../../assets/images/service-image-4.png'
 import service5 from '../../assets/images/service-image-5.png'
 
 import attachement from '../../assets/images/IMG_5044.png'
-
-
-
 
 export default function Home() {
 
@@ -102,32 +99,32 @@ export default function Home() {
   const serviceItems = [
     {
       number: "01",
-      title: "Comprehensive Marketing Solutions",
-      description: "Sage-D Marketing Group specializes in end-to-end marketing solutions that elevate your brand in a competitive landscape. Our innovative campaigns are tailored to captivate and convert your target audience, ensuring your message resonates effectively.",
+      title: "Business Process Automation & E-Commerce Solutions",
+      description: "Automate repetitive tasks and workflows to minimize human error and save time. This includes streamlining inventory, sales, and customer management to enhance efficiency and increase revenue.",
       image: service1,
     },
     {
       number: "02",
-      title: "Digital Presence Optimization",
-      description: "Enhance your online visibility with our expert social media and LinkedIn management services. We create engaging content and execute targeted campaigns that foster growth, drive business success, and strengthen your brand’s online presence.",
+      title: "AI-Driven Customer Support & Engagement",
+      description: "Implement AI-powered chatbots for customer support, reducing response times and improving service quality. Additionally, automate email marketing campaigns to ensure timely communication and boost customer relationships.",
       image: service2,
     },
     {
       number: "03",
-      title: "Targeted Advertising & Analytics",
-      description: "Maximize your reach with our data-driven advertising strategies. We develop and manage targeted campaigns across multiple platforms, providing deep insights and analytics to optimize performance and drive conversions effectively.",
+      title: "Cloud Solutions & Cybersecurity",
+      description: "Securely migrate business operations to the cloud to enhance data security and accessibility. Protect sensitive information from cyber threats through advanced cybersecurity measures, ensuring compliance with regulations.",
       image: service3,
     },
     {
       number: "04",
-      title: "Creative Media Production",
-      description: "Bring your brand story to life with our professional videography and photography services. From promotional videos and corporate films to high-quality imagery, we deliver impactful visual content that enhances your brand identity and engages your audience.",
+      title: "Data Analytics & Document Processing",
+      description: "Leverage AI for data-driven decision-making to improve forecasting and identify trends. Automate document categorization and data extraction to accelerate workflows and enhance accuracy in processing.",
       image: service4,
     },
     {
       number: "05",
-      title: "Innovative Brand Design",
-      description: "Our graphic design team crafts eye-catching branding materials tailored to your unique needs. From logos and brochures to CGI and packaging designs, we ensure your visual identity stands out and communicates your brand’s essence effectively.",
+      title: "Remote Collaboration & Scheduling Tools",
+      description: "Implement automation tools for remote teams to enhance communication and streamline project management. Additionally, automate appointment scheduling to optimize client interactions and reduce no-shows.",
       image: service5,
     },
   ];
@@ -145,8 +142,8 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black  md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-base">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2 "></span>
+          <div className="relative pl-5 md:text-xl text-sm">
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
             About Sage-D Marketing
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium">
@@ -159,7 +156,7 @@ export default function Home() {
         </div>
         <div className="w-full flex items-center justify-center ">
           <video controls className="w-full max-w-8xl rounded-2xl">
-            <source src={aboutUsVideo} type="video/mp4" />
+            <source src={ApproachVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -168,12 +165,12 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-base">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
+          <div className="relative pl-5 md:text-xl text-sm">
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
             Our Clients
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium">
-            Companies Who Trust Us
+            Brands Who Trust Us
           </div>
         </div>
         <div className="w-full grid md:grid-cols-3 grid-cols-1 items-center justify-center">
@@ -209,8 +206,8 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-base">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
+          <div className="relative pl-5 md:text-xl text-sm">
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
             WHAT WE DO
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium">
@@ -231,8 +228,8 @@ export default function Home() {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-6 md:text-xl text-base">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
+          <div className="relative pl-5 md:text-xl text-sm">
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
             How WE DO
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium">

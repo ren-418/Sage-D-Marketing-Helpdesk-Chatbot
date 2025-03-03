@@ -14,32 +14,32 @@ const Services = () => {
     const serviceItems = [
         {
             imagePosition: "left",
-            title: "Comprehensive Marketing Solutions",
-            description: "Sage-D Marketing Group specializes in end-to-end marketing solutions that elevate your brand in a competitive landscape. Our innovative campaigns are tailored to captivate and convert your target audience, ensuring your message resonates effectively.",
+            title: "Business Process Automation & E-Commerce Solutions",
+            description: "Automate repetitive tasks and workflows to minimize human error and save time. This includes streamlining inventory, sales, and customer management to enhance efficiency and increase revenue.",
             image: service1,
         },
         {
             imagePosition: "right",
-            title: "Digital Presence Optimization",
-            description: "Enhance your online visibility with our expert social media and LinkedIn management services. We create engaging content and execute targeted campaigns that foster growth, drive business success, and strengthen your brand’s online presence.",
+            title: "AI-Driven Customer Support & Engagement",
+            description: "Implement AI-powered chatbots for customer support, reducing response times and improving service quality. Additionally, automate email marketing campaigns to ensure timely communication and boost customer relationships.",
             image: service2,
         },
         {
             imagePosition: "left",
-            title: "Targeted Advertising & Analytics",
-            description: "Maximize your reach with our data-driven advertising strategies. We develop and manage targeted campaigns across multiple platforms, providing deep insights and analytics to optimize performance and drive conversions effectively.",
+            title: "Cloud Solutions & Cybersecurity",
+            description: "Securely migrate business operations to the cloud to enhance data security and accessibility. Protect sensitive information from cyber threats through advanced cybersecurity measures, ensuring compliance with regulations.",
             image: service3,
         },
         {
             imagePosition: "right",
-            title: "Creative Media Production",
-            description: "Bring your brand story to life with our professional videography and photography services. From promotional videos and corporate films to high-quality imagery, we deliver impactful visual content that enhances your brand identity and engages your audience.",
+            title: "Data Analytics & Document Processing",
+            description: "Leverage AI for data-driven decision-making to improve forecasting and identify trends. Automate document categorization and data extraction to accelerate workflows and enhance accuracy in processing.",
             image: service4,
         },
         {
             imagePosition: "left",
-            title: "Innovative Brand Design",
-            description: "Our graphic design team crafts eye-catching branding materials tailored to your unique needs. From logos and brochures to CGI and packaging designs, we ensure your visual identity stands out and communicates your brand’s essence effectively.",
+            title: "Remote Collaboration & Scheduling Tools",
+            description: "Implement automation tools for remote teams to enhance communication and streamline project management. Additionally, automate appointment scheduling to optimize client interactions and reduce no-shows.",
             image: service5,
         },
     ];

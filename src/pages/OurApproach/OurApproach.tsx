@@ -87,8 +87,8 @@ const OurApproach = () => {
     return (
         <>
             <section className="relative flex flex-col items-center md:gap-10 gap-5 justify-center lg:px-32 px-5 md:px-10  py-36 w-full bg-cover bg-center mt-32" style={{ backgroundImage: `url(${approach})` }}>
-                <div className="relative pl-6 md:text-xl text-base text-white z-10">
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2 "></span>
+                <div className="relative pl-5 md:text-xl text-sm text-white z-10">
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
                     How We Do That
                 </div>
                 <h1 className="relative z-10 text-white md:text-6xl text-4xl font-medium">Our Approach</h1>
@@ -102,8 +102,8 @@ const OurApproach = () => {
                                 <>
                                     <img src={item.image} alt={item.title} className="w-full max-w-[800px] rounded-xl" />
                                     <div className="flex flex-col items-center justify-center gap-5">
-                                        <div className="relative pl-6 md:text-xl text-base text-black z-10">
-                                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2 "></span>
+                                        <div className="relative pl-5 md:text-xl text-sm text-black z-10">
+                                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
                                             {item.title}
                                         </div>
                                         <h1 className="relative z-10 text-black 2xl:text-start text-center md:text-6xl text-4xl font-medium">{item.subTitle}</h1>
@@ -115,8 +115,8 @@ const OurApproach = () => {
                             ) : (
                                 <>
                                     <div className="flex flex-col items-center justify-center gap-5">
-                                        <div className="relative pl-6 md:text-xl text-base text-black z-10">
-                                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2 "></span>
+                                        <div className="relative pl-5 md:text-xl text-sm text-black z-10">
+                                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
                                             {item.title}
                                         </div>
                                         <h1 className="relative z-10 text-black 2xl:text-start text-center md:text-6xl text-4xl font-medium">{item.subTitle}</h1>
@@ -149,8 +149,8 @@ const OurApproach = () => {
             <section className="flex  flex-col lg:px-32 px-5 md:px-10 w-full bg-cover bg-center min-h-screen ">
                 <div className='w-full flex lg:flex-row flex-col gap-10  border border-gray-300 rounded-2xl 2xl:px-20 md:px-10 px-5 py-10'>
                     <div className='lg:w-[50%] w-full flex flex-col gap-5'>
-                        <div className="relative pl-6 md:text-xl text-base">
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2 "></span>
+                        <div className="relative pl-5 md:text-xl text-sm">
+                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
                             FAQ
                         </div>
                         <h1 className="relative z-10 text-black text-start  md:text-6xl text-4xl font-medium">Ready to proceed, but still have a few open questions?</h1>

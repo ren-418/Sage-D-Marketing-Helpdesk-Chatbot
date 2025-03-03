@@ -77,7 +77,7 @@ const AboutUs = () => {
             </section>
             <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
                 <div className="text-black pl-6 relative flex flex-col md:gap-10 gap-5 items-center text-xl md:mt-24 mt-16">
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
                     About Sage-D Marketing
                 </div>
                 <div className="flex flex-col gap-5 md:flex-row text-center md:text-left items-center justify-between">
@@ -93,12 +93,12 @@ const AboutUs = () => {
             </section>
             <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
                 <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-                    <div className="relative pl-6 md:text-xl text-base">
-                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-[#00ff26] mr-2"></span>
+                    <div className="relative pl-5 md:text-xl text-sm">
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
                         Our Clients
                     </div>
                     <div className="text-black  text-center md:text-6xl text-4xl font-medium">
-                        Companies Who Trust Us
+                        Brands Who Trust Us
                     </div>
                 </div>
                 <div className="w-full grid md:grid-cols-3 grid-cols-1 items-center justify-center">

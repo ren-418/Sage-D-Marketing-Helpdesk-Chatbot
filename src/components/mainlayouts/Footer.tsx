@@ -75,15 +75,16 @@ export default function Footer() {
     <footer
       className='lg:px-32 px-1 bg-black flex md:flex-row flex-col gap-10 justify-between py-10'
     >
-      <div>
+      <div className='flex flex-col gap-4'>
         <Link to="/" className="flex items-center gap-0 ">
           <img
             src={Logo}
-            width={90}
+            width={70}
             alt="logo"
           />
-          <p className="text-white text-2xl ">Sage-D<br /> <span className="text-[#00ff26]">Marketing</span></p>
+          <div className="text-white text-xl font-medium ">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
         </Link>
+        
         <div className="flex gap-4">
           {socialMedia.map((item) => (
             <Link to={item.link} className="cursor-pointer">
@@ -113,7 +114,6 @@ export default function Footer() {
             Privacy Policy
           </Link>
           <Link
-
             to="/layouts/terms-of-service"
             className="w-full  text-lg cursor-pointer relative hover:text-[#00ff26] text-white"
           >
