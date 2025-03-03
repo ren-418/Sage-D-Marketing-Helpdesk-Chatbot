@@ -84,7 +84,6 @@ export default function Footer() {
           />
           <div className="text-white text-xl font-medium ">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
         </Link>
-        
         <div className="flex gap-4">
           {socialMedia.map((item) => (
             <Link to={item.link} className="cursor-pointer">
@@ -123,11 +122,11 @@ export default function Footer() {
         <div className='text-white'>© 2025 SAGE-D Marketing. All rights reserved.</div>
       </div>
       <div className='flex flex-col gap-7'>
-        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[50%] md:w-full ">
+        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full ">
           <p>Get In Touch</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>
-        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[50%] md:w-full">
+        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full">
           <p>Book a call</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>
