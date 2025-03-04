@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/images/logo.png'
+import Logo from '../../assets/images/logo.gif'
 
 import facebookIcon from '../../assets/icons/facebook.svg'
 import instagramIcon from '../../assets/icons/instagram.svg'
@@ -79,23 +79,23 @@ export default function Footer() {
         <Link to="/" className="flex items-center gap-0 ">
           <img
             src={Logo}
-            width={70}
+            width={100}
             alt="logo"
           />
           <div className="text-white text-xl font-medium ">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
         </Link>
         <div className="flex gap-4">
-          {socialMedia.map((item) => (
-            <Link to={item.link} className="cursor-pointer">
+          {socialMedia.map((item, index) => (
+            <Link key={index} to={item.link} className="cursor-pointer">
               <img src={item.icon} alt="icon" width={30} className="transition-opacity duration-300" style={{ filter: 'brightness(0) invert(1)' }} />
             </Link>
           ))}
         </div>
       </div>
       <div className='flex flex-col gap-4'>
-        {menuItems.map((item) => (
+        {menuItems.map((item, index) => (
           <Link
-            key={item.key}
+            key={index}
             to={item.link}
             className="w-full text-lg cursor-pointer relative hover:text-[#00ff26] text-white"
           >
@@ -122,11 +122,11 @@ export default function Footer() {
         <div className='text-white'>© 2025 SAGE-D Marketing. All rights reserved.</div>
       </div>
       <div className='flex flex-col gap-7'>
-        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full ">
+        <Link to="/layouts/get-in-touch" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full ">
           <p>Get In Touch</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>
-        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full">
+        <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full target">
           <p>Book a call</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>

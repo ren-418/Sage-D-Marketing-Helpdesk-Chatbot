@@ -1,21 +1,31 @@
 "use client";
-import { Link } from "react-router-dom"
-
-import ServiceCard from "../../components/service-card";
-
+import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useRef, useState } from "react";
 
 import ApproachVideo from '../../assets/video/Marketing video 2.mp4'
 
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
-import Upwork from '../../assets/images/upwork-dark.png'
-import Loom from '../../assets/images/loom-dark.png'
-import Slack from '../../assets/images/slack.png'
-import Sportify from '../../assets/images/spotify-dark.png'
-import Square from '../../assets/images/square-dark.png'
-import Stripe from '../../assets/images/stripe-brand.png'
-import Tinder from '../../assets/images/tinder-dark.png'
-import Trello from '../../assets/images/trello.png'
-import Zoom from '../../assets/images/zoom-dark.png'
+import brand1 from '../../assets/images/brands/IMG_7277.png'
+import brand2 from '../../assets/images/brands/IMG_7278.png'
+import brand3 from '../../assets/images/brands/IMG_7279.png'
+import brand4 from '../../assets/images/brands/IMG_7280.png'
+import brand5 from '../../assets/images/brands/IMG_7281.png'
+import brand6 from '../../assets/images/brands/IMG_7282.png'
+import brand7 from '../../assets/images/brands/IMG_7283.png'
+import brand8 from '../../assets/images/brands/IMG_7284.png'
+import brand9 from '../../assets/images/brands/IMG_7285.png'
+import brand10 from '../../assets/images/brands/IMG_7286.png'
+import brand11 from '../../assets/images/brands/IMG_7287.png'
+import brand12 from '../../assets/images/brands/IMG_7288.png'
+import brand13 from '../../assets/images/brands/IMG_7289.png'
+import brand14 from '../../assets/images/brands/IMG_7290.png'
+import brand16 from '../../assets/images/brands/IMG_7292.png'
+import brand17 from '../../assets/images/brands/IMG_7293.png'
+import brand18 from '../../assets/images/brands/IMG_7294.png'
+import brand19 from '../../assets/images/brands/IMG_7295.png'
+import brand20 from '../../assets/images/brands/IMG_7296.png'
+import brand21 from '../../assets/images/brands/IMG_7297.png'
+
 import bg from '../../assets/images/bg.png'
 import bg2 from '../../assets/images/bg2.png'
 
@@ -24,53 +34,125 @@ import portfolio2 from '../../assets/images/portfolio-02.png'
 import portfolio3 from '../../assets/images/portfolio-03.png'
 import portfolio4 from '../../assets/images/portfolio-04.png'
 
-import service1 from '../../assets/images/service-image-1.png'
-import service2 from '../../assets/images/service-image-2.png'
-import service3 from '../../assets/images/service-image-3.png'
-import service4 from '../../assets/images/service-image-4.png'
-import service5 from '../../assets/images/service-image-5.png'
+import service1 from '../../assets/images/services/digital.png'
+import service2 from '../../assets/images/services/creactive.png'
+import service3 from '../../assets/images/services/web solution.avif'
+import service4 from '../../assets/images/services/execution.png'
 
 import attachement from '../../assets/images/IMG_5044.png'
 
-export default function Home() {
+const items = [
+  { title: "Digital Marketing & Brand Promotion", image: service1 },
+  { title: "Creative Media Production", image: service2 },
+  { title: "Business Technology & Web Solutions", image: service3 },
+  { title: "Event Planning & Execution", image: service4 },
+];
+
+const initialPositions = [
+  { x: 50, y: 50 }, // Position for Image 1
+  { x: 90, y: 70 }, // Position for Image 2
+  { x: 50, y: 80 }, // Position for Image 3
+  { x: 10, y: 70 }, // Position for Image 4
+];
+
+export default function Home({ }) {
+
+  const [positions, setPositions] = useState(initialPositions);
+  const [sizes, setSizes] = useState<number[]>([100, 100, 100, 100]);
+  const isScrollingRef = useRef<boolean>(false);
+  const navigate = useNavigate()
+
+  // Function to calculate sizes based on the window width
+  const calculateSizes = (positions: { x: number; y: number }[]) => {
+    const centerBottomIndex = positions.findIndex((pos) => pos.x === 50 && pos.y === 80);
+    const centerUpIndex = positions.findIndex((pos) => pos.x === 50 && pos.y === 50);
+
+    // Use window width to determine the image sizes
+    const width = window.innerWidth;
+    let sizes: number[] = [];
+
+    if (width >= 1440) {
+      // Desktop view
+      sizes = positions.map((_, index) => {
+        if (index === centerBottomIndex) return 300; // Center-Bottom should be 300px
+        if (index === centerUpIndex) return 0; // Center-Up should be 50px
+        return 120; // All others should be 100px
+      });
+    }
+    else if (width >= 768) {
+      // Tablet view
+      sizes = positions.map((_, index) => {
+        if (index === centerBottomIndex) return 200;
+        if (index === centerUpIndex) return 0;
+        return 100;
+      });
+    } else {
+      // Mobile view
+      sizes = positions.map((_, index) => {
+        if (index === centerBottomIndex) return 150;
+        if (index === centerUpIndex) return 0;
+        return 80;
+      });
+    }
+
+    return sizes;
+  };
+
+  // Update the sizes when the window is resized
+  useEffect(() => {
+    setSizes(calculateSizes(positions)); // Initial size calculation
+    const handleResize = () => {
+      setSizes(calculateSizes(positions)); // Update sizes on resize
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [positions]);
+
+  // Handle scroll event
+  useEffect(() => {
+    const handleScroll = (event: WheelEvent) => {
+      if (isScrollingRef.current) return;
+      isScrollingRef.current = true;
+
+      setTimeout(() => (isScrollingRef.current = false), 500);
+
+      setPositions((prevPositions) => {
+        return event.deltaY < 0
+          ? [prevPositions[3], ...prevPositions.slice(0, 3)]
+          : [...prevPositions.slice(1), prevPositions[0]];
+      });
+    };
+
+    window.addEventListener("wheel", handleScroll, { passive: true });
+    return () => window.removeEventListener("wheel", handleScroll);
+  }, []);
 
   const companyItems = [
-    {
-      image: Upwork,
-      name: "Upwork",
-    },
-    {
-      image: Loom,
-      name: "Loom",
-    },
-    {
-      image: Slack,
-      name: "Slack",
-    },
-    {
-      image: Sportify,
-      name: "Sportify",
-    },
-    {
-      image: Square,
-      name: "Square",
-    },
-    {
-      image: Stripe,
-      name: "Stripe",
-    },
-    {
-      image: Tinder,
-      name: "Tinder",
-    },
-    {
-      image: Trello,
-      name: "Trello",
-    },
-    {
-      image: Zoom,
-      name: "Zoom",
-    },
+    { image: brand1 },
+    { image: brand2 },
+    { image: brand3 },
+    { image: brand4 },
+    { image: brand5 },
+    { image: brand6 },
+    { image: brand7 },
+    { image: brand8 },
+    { image: brand9 },
+    { image: brand10 },
+    { image: brand11 },
+    { image: brand12 },
+    { image: brand13 },
+    { image: brand14 },
+    { image: brand16 },
+    { image: brand17 },
+    { image: brand18 },
+    { image: brand19 },
+    { image: brand20 },
+    { image: brand21 },
+
   ];
 
   const portfolioItems = [
@@ -96,49 +178,67 @@ export default function Home() {
     },
   ];
 
-  const serviceItems = [
-    {
-      number: "01",
-      title: "Business Process Automation & E-Commerce Solutions",
-      description: "Automate repetitive tasks and workflows to minimize human error and save time. This includes streamlining inventory, sales, and customer management to enhance efficiency and increase revenue.",
-      image: service1,
-    },
-    {
-      number: "02",
-      title: "AI-Driven Customer Support & Engagement",
-      description: "Implement AI-powered chatbots for customer support, reducing response times and improving service quality. Additionally, automate email marketing campaigns to ensure timely communication and boost customer relationships.",
-      image: service2,
-    },
-    {
-      number: "03",
-      title: "Cloud Solutions & Cybersecurity",
-      description: "Securely migrate business operations to the cloud to enhance data security and accessibility. Protect sensitive information from cyber threats through advanced cybersecurity measures, ensuring compliance with regulations.",
-      image: service3,
-    },
-    {
-      number: "04",
-      title: "Data Analytics & Document Processing",
-      description: "Leverage AI for data-driven decision-making to improve forecasting and identify trends. Automate document categorization and data extraction to accelerate workflows and enhance accuracy in processing.",
-      image: service4,
-    },
-    {
-      number: "05",
-      title: "Remote Collaboration & Scheduling Tools",
-      description: "Implement automation tools for remote teams to enhance communication and streamline project management. Additionally, automate appointment scheduling to optimize client interactions and reduce no-shows.",
-      image: service5,
-    },
-  ];
+
+  const gotoService = () => {
+    navigate('/layouts/services')
+  }
 
   return (
     <>
-      <section className="flex flex-col items-start md:gap-10 gap-5 justify-start lg:px-32 px-5 md:px-10 w-full  bg-cover bg-center h-screen" style={{ backgroundImage: `url(${bg})` }}>
-        <div className="text-xl md:text-2xl mt-48 md:mt-56 font-medium px-3 py-2 rounded-xl text-[#00ff26] cursor-pointer bg-[#282826] border-[#FFFFFF1A] border">Your Brand Our Passion</div>
-        <h1 className="text-white md:text-6xl text-4xl font-medium">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
-        <p className="text-white text-lg md:text-xl">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
-        <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
-          <p>Book a call</p>
-          <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
-        </Link>
+      <section className="relative flex flex-col items-center gap-5  h-screen bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
+        <div className="text-xl md:text-2xl mt-36 2xl:mt-56 font-medium px-3 py-2 rounded-xl text-[#00ff26] cursor-pointer bg-[#282826] border-[#FFFFFF1A] border">Your Brand Our Passion</div>
+        <h1 className="text-white md:text-6xl text-4xl font-medium text-center">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
+        <p className="text-white text-lg md:text-xl text-center">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
+        <div>
+          <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B] hidden md:flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold " target="_blank">
+            <p>Book a call</p>
+            <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
+          </Link>
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative w-full h-full">
+            {items.map((item, index) => {
+              const { x, y } = positions[index];
+              const size = sizes[index];
+              return (size > 120 ? (
+                <div
+                  onClick={() => gotoService()}
+                  key={index}
+                  className="absolute flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer"
+                  style={{
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    left: `${x}%`,
+                    top: `${y}%`,
+                    transform: `translate(-50%, -50%)`,
+                    zIndex: 1,
+                  }}
+                >
+                  <img src={item.image} alt={item.title} className="w-full h-full rounded-full" />
+                  <div className="absolute text-[#00FFFF] text-center text-sm md:text-xl font-medium">{item.title}</div>
+                </div>
+              ) : (
+                <div
+                  key={index}
+                  onClick={() => gotoService()}
+                  className="absolute flex items-center justify-center transition-all duration-500 ease-in-out cursor-pointer"
+                  style={{
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    left: `${x}%`,
+                    top: `${y}%`,
+                    transform: `translate(-50%, -50%)`,
+                    zIndex: 1,
+                  }}
+                >
+                  <img src={item.image} alt={item.title} className="w-full h-full rounded-full" />
+                </div>
+              )
+
+              );
+            })}
+          </div>
+        </div>
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black  md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
@@ -173,10 +273,10 @@ export default function Home() {
             Brands Who Trust Us
           </div>
         </div>
-        <div className="w-full grid md:grid-cols-3 grid-cols-1 items-center justify-center">
+        <div className="w-full grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center justify-center">
           {companyItems.map((item, index) => (
-            <div className="px-24 py-10">
-              <img src={item.image} alt={item.name} key={index} className="w-full md:max-w-[150px] max-w-[130px]" />
+            <div className="px-24 py-10" key={index}>
+              <img src={item.image} alt="brand" className="w-full md:max-w-[150px] max-w-[130px]" />
             </div>
           ))}
         </div>
@@ -189,8 +289,8 @@ export default function Home() {
         </div>
         <div className="w-full grid xl:grid-cols-2 grid-cols-1 gap-y-5 gap-x-5">
           {portfolioItems.map((item, index) => (
-            <div className=" flex flex-col items-center gap-5">
-              <img src={item.image} alt={item.title} key={index} className="w-full max-w-[900px] rounded-2xl" />
+            <div className=" flex flex-col items-center gap-5" key={index}>
+              <img src={item.image} alt={item.title} className="w-full max-w-[900px] rounded-2xl" />
               <div className="text-black text-center md:text-3xl text-xl font-medium">
                 {item.title}
               </div>
@@ -204,7 +304,7 @@ export default function Home() {
         <div className="w-full border-b border-gray md:mt-24 mt-16">
         </div>
       </section>
-      <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
+      {/* <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
           <div className="relative pl-5 md:text-xl text-sm">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
@@ -225,7 +325,7 @@ export default function Home() {
         </Link>
         <div className="w-full border-b border-gray md:mt-24 mt-16">
         </div>
-      </section>
+      </section> */}
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
           <div className="relative pl-5 md:text-xl text-sm">
@@ -254,7 +354,7 @@ export default function Home() {
           <div className="flex flex-col gap-10 items-start">
             <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
             <div className="w-full flex items-center justify-start ">
-              <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+              <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                 <p>Book a call</p>
                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
               </Link>

@@ -4,15 +4,27 @@ import image1 from '../../assets/images/about-us.png'
 import image2 from '../../assets/images/IMG_5069.png'
 import image3 from '../../assets/images/approach.png'
 
-import Upwork from '../../assets/images/upwork-dark.png'
-import Loom from '../../assets/images/loom-dark.png'
-import Slack from '../../assets/images/slack.png'
-import Sportify from '../../assets/images/spotify-dark.png'
-import Square from '../../assets/images/square-dark.png'
-import Stripe from '../../assets/images/stripe-brand.png'
-import Tinder from '../../assets/images/tinder-dark.png'
-import Trello from '../../assets/images/trello.png'
-import Zoom from '../../assets/images/zoom-dark.png'
+
+import brand1 from '../../assets/images/brands/IMG_7277.png'
+import brand2 from '../../assets/images/brands/IMG_7278.png'
+import brand3 from '../../assets/images/brands/IMG_7279.png'
+import brand4 from '../../assets/images/brands/IMG_7280.png'
+import brand5 from '../../assets/images/brands/IMG_7281.png'
+import brand6 from '../../assets/images/brands/IMG_7282.png'
+import brand7 from '../../assets/images/brands/IMG_7283.png'
+import brand8 from '../../assets/images/brands/IMG_7284.png'
+import brand9 from '../../assets/images/brands/IMG_7285.png'
+import brand10 from '../../assets/images/brands/IMG_7286.png'
+import brand11 from '../../assets/images/brands/IMG_7287.png'
+import brand12 from '../../assets/images/brands/IMG_7288.png'
+import brand13 from '../../assets/images/brands/IMG_7289.png'
+import brand14 from '../../assets/images/brands/IMG_7290.png'
+import brand16 from '../../assets/images/brands/IMG_7292.png'
+import brand17 from '../../assets/images/brands/IMG_7293.png'
+import brand18 from '../../assets/images/brands/IMG_7294.png'
+import brand19 from '../../assets/images/brands/IMG_7295.png'
+import brand20 from '../../assets/images/brands/IMG_7296.png'
+import brand21 from '../../assets/images/brands/IMG_7297.png'
 
 import attachement from '../../assets/images/IMG_5044.png'
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
@@ -23,42 +35,27 @@ const AboutUs = () => {
     const images = [image1, image2, image3]
 
     const companyItems = [
-        {
-            image: Upwork,
-            name: "Upwork",
-        },
-        {
-            image: Loom,
-            name: "Loom",
-        },
-        {
-            image: Slack,
-            name: "Slack",
-        },
-        {
-            image: Sportify,
-            name: "Sportify",
-        },
-        {
-            image: Square,
-            name: "Square",
-        },
-        {
-            image: Stripe,
-            name: "Stripe",
-        },
-        {
-            image: Tinder,
-            name: "Tinder",
-        },
-        {
-            image: Trello,
-            name: "Trello",
-        },
-        {
-            image: Zoom,
-            name: "Zoom",
-        },
+        { image: brand1 },
+        { image: brand2 },
+        { image: brand3 },
+        { image: brand4 },
+        { image: brand5 },
+        { image: brand6 },
+        { image: brand7 },
+        { image: brand8 },
+        { image: brand9 },
+        { image: brand10 },
+        { image: brand11 },
+        { image: brand12 },
+        { image: brand13 },
+        { image: brand14 },
+        { image: brand16 },
+        { image: brand17 },
+        { image: brand18 },
+        { image: brand19 },
+        { image: brand20 },
+        { image: brand21 },
+
     ];
     return (
         <>
@@ -101,10 +98,10 @@ const AboutUs = () => {
                         Brands Who Trust Us
                     </div>
                 </div>
-                <div className="w-full grid md:grid-cols-3 grid-cols-1 items-center justify-center">
+                <div className="w-full grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center justify-center">
                     {companyItems.map((item, index) => (
-                        <div className="px-24 py-10">
-                            <img src={item.image} alt={item.name} key={index} className="w-full md:max-w-[150px] max-w-[130px]" />
+                        <div className="px-24 py-10" key={index} >
+                            <img src={item.image} alt="brand" className="w-full md:max-w-[150px] max-w-[130px]" />
                         </div>
                     ))}
                 </div>
@@ -116,7 +113,7 @@ const AboutUs = () => {
                     <div className="flex flex-col gap-10 items-start">
                         <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
                         <div className="w-full flex items-center justify-start ">
-                            <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+                            <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                                 <p>Book a call</p>
                                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
                             </Link>

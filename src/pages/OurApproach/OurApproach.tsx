@@ -114,7 +114,7 @@ const OurApproach = () => {
                                 </>
                             ) : (
                                 <>
-                                    <div className="flex flex-col items-center justify-center gap-5">
+                                    <div className="flex flex-col items-center justify-center gap-5" key={index}>
                                         <div className="relative pl-5 md:text-xl text-sm text-black z-10">
                                             <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
                                             {item.title}
@@ -168,7 +168,7 @@ const OurApproach = () => {
                     <div className="flex flex-col gap-10 items-start">
                         <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
                         <div className="w-full flex items-center justify-start ">
-                            <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+                            <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                                 <p>Book a call</p>
                                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
                             </Link>

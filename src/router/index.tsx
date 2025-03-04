@@ -5,6 +5,10 @@ import AboutUs from "../pages/Aboutus"
 import OurApproach from "../pages/OurApproach"
 import Services from "../pages/Services"
 import OurWork from "../pages/OurWork"
+import FreelanceEditing from "../pages/FreelanceEditing"
+import GetInTouch from "../pages/GetInTouch"
+import Privacy from "../pages/Privacy"
+import TermsOfService from "../pages/TermsOfService"
 
 const Router: React.FC = () => {
     return (
@@ -16,6 +20,10 @@ const Router: React.FC = () => {
                 <Route path="our-approach" element={<OurApproach />} />
                 <Route path="services" element={<Services />} />
                 <Route path="our-work" element={<OurWork />} />
+                <Route path="freelance-editing" element={<FreelanceEditing />} />
+                <Route path="get-in-touch" element={<GetInTouch />} />
+                <Route path="privacy-policy" element={<Privacy />} />
+                <Route path="terms-of-service" element={<TermsOfService />} />
             </Route>
         </Routes>
     )

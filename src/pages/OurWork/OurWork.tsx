@@ -44,8 +44,8 @@ const OurWork = () => {
             <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
                 <div className="w-full grid xl:grid-cols-2 grid-cols-1 gap-y-5 gap-x-5">
                     {portfolioItems.map((item, index) => (
-                        <div className=" flex flex-col items-center gap-5">
-                            <img src={item.image} alt={item.title} key={index} className="w-full max-w-[900px] rounded-2xl" />
+                        <div className=" flex flex-col items-center gap-5" key={index}>
+                            <img src={item.image} alt={item.title}  className="w-full max-w-[900px] rounded-2xl" />
                             <div className="text-black text-center md:text-3xl text-xl font-medium">
                                 {item.title}
                             </div>
@@ -60,7 +60,7 @@ const OurWork = () => {
                     <div className="flex flex-col gap-10 items-start">
                         <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
                         <div className="w-full flex items-center justify-start ">
-                            <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+                            <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                                 <p>Book a call</p>
                                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
                             </Link>

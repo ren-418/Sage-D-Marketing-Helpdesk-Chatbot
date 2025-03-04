@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo from '../../assets/images/logo.png'
+import Logo from '../../assets/images/logo.gif'
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
 import rightArrowIcon from '../../assets/icons/right-arrow.svg'
 import aboutUs from '../../assets/images/about-us.png'
@@ -115,7 +115,7 @@ export default function Header() {
     {
       name: 'Instagram',
       icon: instagramIcon,
-      link: 'https://www.instagram.com'
+      link: 'https://www.instagram.com/saged_media?igsh=MTVreWVxMGliMGFwbw%3D%3D&utm_source=qr'
     },
     {
       name: 'Linkedin',
@@ -142,28 +142,28 @@ export default function Header() {
           }`}
       >
         <div
-          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 py-6 rounded-b-3xl  ${scrolling || !isHome ? "py-[10px] bg-black" : "bg-transparent"
+          className={`relative top-0 left-0 flex flex-row justify-between w-full items-center underline-bottom-white lg:px-32 px-1 py-[20px] lg:py-[21px]  ${scrolling || !isHome ? "py-[10px] bg-black rounded-b-3xl" : "bg-transparent"
             }`}
         >
-          <div>
+          <div >
             <Link to="/" className="flex items-center ">
               <img
                 src={Logo}
-                width={70}
+                width={100}
                 alt="logo"
                 className={`${!scrolling && "hidden"}`}
               />
               <img
                 src={Logo}
-                width={70}
+                width={100}
                 alt="logo"
                 className={`${scrolling && "hidden"}`}
               />
-              <div className="text-white text-xl font-medium ">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
+              <div className="text-white text-xl font-medium">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
             </Link>
           </div>
           <div className="lg:flex gap-2 hidden">
-            <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+            <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold " target="_blank">
               <p>Book a call</p>
               <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
             </Link>
@@ -220,13 +220,13 @@ export default function Header() {
               ))}
             </ul>
             <div className="flex flex-col gap-6 justify-center items-center">
-              <Link to="https://google.com" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+              <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                 <p>Book a call</p>
                 <img src={arrowIcon} alt="icon" width={20} className="" />
               </Link>
               <div className="flex gap-4">
-                {socialMedia.map((item) => (
-                  <Link to={item.link} className="cursor-pointer">
+                {socialMedia.map((item, index) => (
+                  <Link key={index} to={item.link} className="cursor-pointer">
                     <img src={item.icon} alt="icon" width={50} className="transition-opacity duration-300" style={{ filter: 'brightness(0) invert(1)' }} />
                   </Link>
                 ))}
@@ -236,22 +236,22 @@ export default function Header() {
         )}
       </header>
       {!!menuOpen && !isHamburgerOpen && (
-        <div className={`fixed top-[132px] w-full h-full bg-[#1D1D1B] transition-all duration-500 ease-in-out z-20 ${menuOpen
+        <div className={`fixed top-[145px] w-full h-full bg-[#1D1D1B] transition-all duration-500 ease-in-out z-20 ${menuOpen
           ? 'right-0'
           : 'right-[-100%]'
           }`}>
           <div className="container mx-auto px-32 py-16">
             <div className="flex flex-col gap-10">
               {menuItems.map((item) => (
-                <div className="flex justify-end w-full">
+                <div className="flex justify-end w-full" key={item.key}>
                   <div className={`${HoveredItem === item.name ? "flex" : "hidden"} absolute left-0 top-[10px]`}>
                     <img src={item.img} alt="img" width={900} className="w-full max-w-[600px] xl:max-w-[800px] 2xl:max-w-[900px] h-auto" />
                   </div>
                   <div className="flex justify-start w-full pl-[500px] xl:pl-[700px] 2xl:pl-[750px]">
                     <Link
-                      key={item.key}
+                      
                       to={item.link}
-                      className="text-white lg:text-4xl 2xl:text-6xl font-normal hover:text-[#00ff26] transition-colors flex items-center gap-4 w-full justify-start"
+                      className="text-white lg:text-4xl 2xl:text-6xl font-medium hover:text-[#00ff26] transition-colors flex items-center gap-4 w-full justify-start"
                       onMouseEnter={() => {
                         setHoveredItem(item.name);
                       }}

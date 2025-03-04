@@ -15,7 +15,7 @@ const ServiceCard = (props: ServiceCardProps) => {
 
     return (
         <div className="flex flex-col lg:flex-row items-center gap-20 w-full lg:w-[80%] p-5 lg:pl-[100px] border border-gray rounded-2xl cursor-pointer" onClick={() => setIsOpenedDetail(!isOpenedDetail)}>
-            <div className="flex flex-col gap-7 w-full lg:w-[50%]">
+            <div className="flex flex-col gap-7 w-full">
                 <div className="flex items-center gap-5">
                     <div className="text-black lg:text-3xl text-xl font-medium">{props.number}</div>
                     <div className="text-black lg:text-3xl text-xl font-medium">{props.title}</div>
