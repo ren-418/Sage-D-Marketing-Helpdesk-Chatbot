@@ -1,30 +1,30 @@
 "use client";
-import { Link, useNavigate } from "react-router-dom"
-import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom"
+
 
 import ApproachVideo from '../../assets/video/Marketing video 2.mp4'
 
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
-import brand1 from '../../assets/images/brands/IMG_7277.png'
-import brand2 from '../../assets/images/brands/IMG_7278.png'
-import brand3 from '../../assets/images/brands/IMG_7279.png'
-import brand4 from '../../assets/images/brands/IMG_7280.png'
-import brand5 from '../../assets/images/brands/IMG_7281.png'
-import brand6 from '../../assets/images/brands/IMG_7282.png'
-import brand7 from '../../assets/images/brands/IMG_7283.png'
-import brand8 from '../../assets/images/brands/IMG_7284.png'
-import brand9 from '../../assets/images/brands/IMG_7285.png'
-import brand10 from '../../assets/images/brands/IMG_7286.png'
-import brand11 from '../../assets/images/brands/IMG_7287.png'
-import brand12 from '../../assets/images/brands/IMG_7288.png'
-import brand13 from '../../assets/images/brands/IMG_7289.png'
-import brand14 from '../../assets/images/brands/IMG_7290.png'
-import brand16 from '../../assets/images/brands/IMG_7292.png'
-import brand17 from '../../assets/images/brands/IMG_7293.png'
-import brand18 from '../../assets/images/brands/IMG_7294.png'
-import brand19 from '../../assets/images/brands/IMG_7295.png'
-import brand20 from '../../assets/images/brands/IMG_7296.png'
-import brand21 from '../../assets/images/brands/IMG_7297.png'
+import brand1 from '../../assets/images/brands/1.png'
+import brand2 from '../../assets/images/brands/2.png'
+import brand3 from '../../assets/images/brands/3.png'
+import brand4 from '../../assets/images/brands/4.png'
+import brand5 from '../../assets/images/brands/5.png'
+import brand6 from '../../assets/images/brands/6.png'
+import brand7 from '../../assets/images/brands/7.png'
+import brand8 from '../../assets/images/brands/8.png'
+import brand9 from '../../assets/images/brands/9.png'
+import brand10 from '../../assets/images/brands/10.png'
+import brand11 from '../../assets/images/brands/11.png'
+import brand12 from '../../assets/images/brands/12.png'
+import brand13 from '../../assets/images/brands/13.png'
+import brand14 from '../../assets/images/brands/14.png'
+import brand16 from '../../assets/images/brands/15.png'
+import brand17 from '../../assets/images/brands/16.png'
+import brand18 from '../../assets/images/brands/17.png'
+import brand19 from '../../assets/images/brands/18.png'
+import brand20 from '../../assets/images/brands/19.png'
+import brand21 from '../../assets/images/brands/20.png'
 
 import bg from '../../assets/images/bg.png'
 import bg2 from '../../assets/images/bg2.png'
@@ -34,102 +34,93 @@ import portfolio2 from '../../assets/images/portfolio-02.png'
 import portfolio3 from '../../assets/images/portfolio-03.png'
 import portfolio4 from '../../assets/images/portfolio-04.png'
 
-import service1 from '../../assets/images/services/digital.png'
-import service2 from '../../assets/images/services/creactive.png'
-import service3 from '../../assets/images/services/web solution.avif'
-import service4 from '../../assets/images/services/execution.png'
 
 import attachement from '../../assets/images/IMG_5044.png'
 
-const items = [
-  { title: "Digital Marketing & Brand Promotion", image: service1 },
-  { title: "Creative Media Production", image: service2 },
-  { title: "Business Technology & Web Solutions", image: service3 },
-  { title: "Event Planning & Execution", image: service4 },
-];
 
-const initialPositions = [
-  { x: 50, y: 50 }, // Position for Image 1
-  { x: 90, y: 70 }, // Position for Image 2
-  { x: 50, y: 80 }, // Position for Image 3
-  { x: 10, y: 70 }, // Position for Image 4
-];
+
+// const initialPositions = [
+//   { x: 50, y: 50 }, // Position for Image 1
+//   { x: 90, y: 70 }, // Position for Image 2
+//   { x: 50, y: 80 }, // Position for Image 3
+//   { x: 10, y: 70 }, // Position for Image 4
+// ];
 
 export default function Home({ }) {
 
-  const [positions, setPositions] = useState(initialPositions);
-  const [sizes, setSizes] = useState<number[]>([100, 100, 100, 100]);
-  const isScrollingRef = useRef<boolean>(false);
-  const navigate = useNavigate()
+  // const [positions, setPositions] = useState(initialPositions);
+  // const [sizes, setSizes] = useState<number[]>([100, 100, 100, 100]);
+  // const isScrollingRef = useRef<boolean>(false);
+  
 
-  // Function to calculate sizes based on the window width
-  const calculateSizes = (positions: { x: number; y: number }[]) => {
-    const centerBottomIndex = positions.findIndex((pos) => pos.x === 50 && pos.y === 80);
-    const centerUpIndex = positions.findIndex((pos) => pos.x === 50 && pos.y === 50);
+  // // Function to calculate sizes based on the window width
+  // const calculateSizes = (positions: { x: number; y: number }[]) => {
+  //   const centerBottomIndex = positions.findIndex((pos) => pos.x === 50 && pos.y === 80);
+  //   const centerUpIndex = positions.findIndex((pos) => pos.x === 50 && pos.y === 50);
 
-    // Use window width to determine the image sizes
-    const width = window.innerWidth;
-    let sizes: number[] = [];
+  //   // Use window width to determine the image sizes
+  //   const width = window.innerWidth;
+  //   let sizes: number[] = [];
 
-    if (width >= 1440) {
-      // Desktop view
-      sizes = positions.map((_, index) => {
-        if (index === centerBottomIndex) return 300; // Center-Bottom should be 300px
-        if (index === centerUpIndex) return 0; // Center-Up should be 50px
-        return 120; // All others should be 100px
-      });
-    }
-    else if (width >= 768) {
-      // Tablet view
-      sizes = positions.map((_, index) => {
-        if (index === centerBottomIndex) return 200;
-        if (index === centerUpIndex) return 0;
-        return 100;
-      });
-    } else {
-      // Mobile view
-      sizes = positions.map((_, index) => {
-        if (index === centerBottomIndex) return 150;
-        if (index === centerUpIndex) return 0;
-        return 80;
-      });
-    }
+  //   if (width >= 1440) {
+  //     // Desktop view
+  //     sizes = positions.map((_, index) => {
+  //       if (index === centerBottomIndex) return 300; // Center-Bottom should be 300px
+  //       if (index === centerUpIndex) return 0; // Center-Up should be 50px
+  //       return 120; // All others should be 100px
+  //     });
+  //   }
+  //   else if (width >= 768) {
+  //     // Tablet view
+  //     sizes = positions.map((_, index) => {
+  //       if (index === centerBottomIndex) return 200;
+  //       if (index === centerUpIndex) return 0;
+  //       return 100;
+  //     });
+  //   } else {
+  //     // Mobile view
+  //     sizes = positions.map((_, index) => {
+  //       if (index === centerBottomIndex) return 150;
+  //       if (index === centerUpIndex) return 0;
+  //       return 80;
+  //     });
+  //   }
 
-    return sizes;
-  };
+  //   return sizes;
+  // };
 
-  // Update the sizes when the window is resized
-  useEffect(() => {
-    setSizes(calculateSizes(positions)); // Initial size calculation
-    const handleResize = () => {
-      setSizes(calculateSizes(positions)); // Update sizes on resize
-    };
+  // // Update the sizes when the window is resized
+  // useEffect(() => {
+  //   setSizes(calculateSizes(positions)); // Initial size calculation
+  //   const handleResize = () => {
+  //     setSizes(calculateSizes(positions)); // Update sizes on resize
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [positions]);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, [positions]);
 
-  // Handle scroll event
-  useEffect(() => {
-    const handleScroll = (event: WheelEvent) => {
-      if (isScrollingRef.current) return;
-      isScrollingRef.current = true;
+  // // Handle scroll event
+  // useEffect(() => {
+  //   const handleScroll = (event: WheelEvent) => {
+  //     if (isScrollingRef.current) return;
+  //     isScrollingRef.current = true;
 
-      setTimeout(() => (isScrollingRef.current = false), 500);
+  //     setTimeout(() => (isScrollingRef.current = false), 500);
 
-      setPositions((prevPositions) => {
-        return event.deltaY < 0
-          ? [prevPositions[3], ...prevPositions.slice(0, 3)]
-          : [...prevPositions.slice(1), prevPositions[0]];
-      });
-    };
+  //     setPositions((prevPositions) => {
+  //       return event.deltaY < 0
+  //         ? [prevPositions[3], ...prevPositions.slice(0, 3)]
+  //         : [...prevPositions.slice(1), prevPositions[0]];
+  //     });
+  //   };
 
-    window.addEventListener("wheel", handleScroll, { passive: true });
-    return () => window.removeEventListener("wheel", handleScroll);
-  }, []);
+  //   window.addEventListener("wheel", handleScroll, { passive: true });
+  //   return () => window.removeEventListener("wheel", handleScroll);
+  // }, []);
 
   const companyItems = [
     { image: brand1 },
@@ -179,23 +170,21 @@ export default function Home({ }) {
   ];
 
 
-  const gotoService = () => {
-    navigate('/layouts/services')
-  }
+
 
   return (
     <>
-      <section className="relative flex flex-col items-center gap-5  h-screen bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
-        <div className="text-xl md:text-2xl mt-36 2xl:mt-56 font-medium px-3 py-2 rounded-xl text-[#00ff26] cursor-pointer bg-[#282826] border-[#FFFFFF1A] border">Your Brand Our Passion</div>
-        <h1 className="text-white md:text-6xl text-4xl font-medium text-center">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
-        <p className="text-white text-lg md:text-xl text-center">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
+      <section className="relative flex flex-col items-start gap-8  h-screen bg-cover bg-center lg:px-32 px-5 md:px-10" style={{ backgroundImage: `url(${bg})` }}>
+        <div className="text-xl md:text-2xl mt-48 lg:mt-56 font-medium px-3 py-2 rounded-xl text-[#00ff26] cursor-pointer bg-[#282826] border-[#FFFFFF1A] border">Your Brand Our Passion</div>
+        <h1 className="text-white md:text-6xl text-4xl font-medium ">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
+        <p className="text-white text-lg md:text-xl ">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
         <div>
-          <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B] hidden md:flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold " target="_blank">
+          <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold " target="_blank">
             <p>Book a call</p>
             <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
           </Link>
         </div>
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative w-full h-full">
             {items.map((item, index) => {
               const { x, y } = positions[index];
@@ -238,7 +227,7 @@ export default function Home({ }) {
               );
             })}
           </div>
-        </div>
+        </div> */}
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black  md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
@@ -297,7 +286,7 @@ export default function Home({ }) {
             </div>
           ))}
         </div>
-        <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
+        <Link to="/layouts/our-work" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
           <p>View all work</p>
           <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
         </Link>
@@ -342,7 +331,7 @@ export default function Home({ }) {
             Your browser does not support the video tag.
           </video>
         </div>
-        <Link to="/" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
+        <Link to="/layouts/our-approach" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
           <p>View Our Approach</p>
           <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
         </Link>
