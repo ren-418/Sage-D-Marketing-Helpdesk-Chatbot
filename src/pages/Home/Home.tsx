@@ -273,10 +273,10 @@ export default function Home({ }) {
             Brands Who Trust Us
           </div>
         </div>
-        <div className="w-full grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center justify-center">
+        <div className="w-full grid grid-cols-3 lg:grid-cols-8 justify-items-center justify-center">
           {companyItems.map((item, index) => (
-            <div className="px-24 py-10" key={index}>
-              <img src={item.image} alt="brand" className="w-full md:max-w-[150px] max-w-[130px]" />
+            <div className="w-[100px] 2xl:w-[150px] aspect-[4/3]" key={index}>
+              <img src={item.image} alt="brand" className="w-full h-full" />
             </div>
           ))}
         </div>
