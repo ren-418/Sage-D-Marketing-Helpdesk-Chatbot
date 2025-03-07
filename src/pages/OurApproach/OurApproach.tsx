@@ -12,6 +12,7 @@ import perspective from '../../assets/images/perspective.svg'
 import attachement from '../../assets/images/IMG_5044.png'
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
 import Fap from '../../components/fap';
+import Logo from '../../assets/images/logo.gif'
 
 const OurApproach = () => {
 
@@ -58,7 +59,7 @@ const OurApproach = () => {
             text: "You require fresh perspectives and insights into effective strategies that are driving success for brands in 2025."
         }
     ]
-    
+
     const faqItems = [
         {
             title: "What services does Sage-D Marketing Group offer?",
@@ -80,15 +81,19 @@ const OurApproach = () => {
             title: "How can I get started with Sage-D Marketing Group?",
             description: "Contact Sage-D Marketing Group via the website or phone to schedule a consultation and discuss marketing needs."
         }
-        
+
 
     ]
 
     return (
         <>
             <section className="relative flex flex-col items-center md:gap-10 gap-5 justify-center lg:px-32 px-5 md:px-10  py-36 w-full bg-cover bg-center mt-32" style={{ backgroundImage: `url(${approach})` }}>
-                <div className="relative pl-5 md:text-xl text-sm text-white z-10">
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
+                <div className="relative flex items-center md:text-xl text-sm text-white z-10">
+                    <img
+                        src={Logo}
+                        width={45}
+                        alt="logo"
+                    />
                     How We Do That
                 </div>
                 <h1 className="relative z-10 text-white md:text-6xl text-4xl font-medium">Our Approach</h1>
@@ -102,8 +107,12 @@ const OurApproach = () => {
                                 <>
                                     <img src={item.image} alt={item.title} className="w-full max-w-[800px] rounded-xl" />
                                     <div className="flex flex-col items-center justify-center gap-5">
-                                        <div className="relative pl-5 md:text-xl text-sm text-black z-10">
-                                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
+                                        <div className="relative flex items-center md:text-xl text-sm text-black z-10">
+                                            <img
+                                                src={Logo}
+                                                width={45}
+                                                alt="logo"
+                                            />
                                             {item.title}
                                         </div>
                                         <h1 className="relative z-10 text-black 2xl:text-start text-center md:text-6xl text-4xl font-medium">{item.subTitle}</h1>
@@ -115,8 +124,12 @@ const OurApproach = () => {
                             ) : (
                                 <>
                                     <div className="flex flex-col items-center justify-center gap-5" key={index}>
-                                        <div className="relative pl-5 md:text-xl text-sm text-black z-10">
-                                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
+                                        <div className="relative flex items-center md:text-xl text-sm text-black z-10">
+                                            <img
+                                                src={Logo}
+                                                width={45}
+                                                alt="logo"
+                                            />
                                             {item.title}
                                         </div>
                                         <h1 className="relative z-10 text-black 2xl:text-start text-center md:text-6xl text-4xl font-medium">{item.subTitle}</h1>
@@ -149,8 +162,12 @@ const OurApproach = () => {
             <section className="flex  flex-col lg:px-32 px-5 md:px-10 w-full bg-cover bg-center min-h-screen ">
                 <div className='w-full flex lg:flex-row flex-col gap-10  border border-gray-300 rounded-2xl 2xl:px-20 md:px-10 px-5 py-10'>
                     <div className='lg:w-[50%] w-full flex flex-col gap-5'>
-                        <div className="relative pl-5 md:text-xl text-sm">
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
+                        <div className="relative flex items-center md:text-xl text-sm">
+                            <img
+                                src={Logo}
+                                width={45}
+                                alt="logo"
+                            />
                             FAQ
                         </div>
                         <h1 className="relative z-10 text-black text-start  md:text-6xl text-4xl font-medium">Ready to proceed, but still have a few open questions?</h1>
