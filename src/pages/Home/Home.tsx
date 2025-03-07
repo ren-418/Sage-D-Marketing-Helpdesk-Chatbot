@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 import ApproachVideo from '../../assets/video/Marketing video 2.mp4'
 
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
+import Logo from '../../assets/images/logo.gif'
+
 import brand1 from '../../assets/images/brands/1.png'
 import brand2 from '../../assets/images/brands/2.png'
 import brand3 from '../../assets/images/brands/3.png'
@@ -51,7 +53,7 @@ export default function Home({ }) {
   // const [positions, setPositions] = useState(initialPositions);
   // const [sizes, setSizes] = useState<number[]>([100, 100, 100, 100]);
   // const isScrollingRef = useRef<boolean>(false);
-  
+
 
   // // Function to calculate sizes based on the window width
   // const calculateSizes = (positions: { x: number; y: number }[]) => {
@@ -179,7 +181,7 @@ export default function Home({ }) {
         <h1 className="text-white md:text-6xl text-4xl font-medium ">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
         <p className="text-white text-lg md:text-xl ">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
         <div>
-          <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold " target="_blank">
+          <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B]  flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold hover:text-black" target="_blank">
             <p>Book a call</p>
             <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
           </Link>
@@ -231,14 +233,19 @@ export default function Home({ }) {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black  md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-5 md:text-xl text-sm">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2 "></span>
+          <div className="relative flex items-center md:text-xl text-sm">
+            <img
+              src={Logo}
+              width={45}
+              alt="logo"
+            />
+            {/* <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span> */}
             About Sage-D Marketing
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium">
             We are Creative Digital Agency
           </div>
-          <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-noremal">
+          <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
             <p>More aboout us</p>
             <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
           </Link>
@@ -254,8 +261,12 @@ export default function Home({ }) {
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-5 md:text-xl text-sm">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
+          <div className="flex items-center md:text-xl text-sm">
+            <img
+              src={Logo}
+              width={45}
+              alt="logo"
+            />
             Our Clients
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium">
@@ -317,8 +328,12 @@ export default function Home({ }) {
       </section> */}
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
         <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-          <div className="relative pl-5 md:text-xl text-sm">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
+          <div className=" flex items-center md:text-xl text-sm">
+            <img
+              src={Logo}
+              width={45}
+              alt="logo"
+            />
             How WE DO
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium">
@@ -343,7 +358,7 @@ export default function Home({ }) {
           <div className="flex flex-col gap-10 items-start">
             <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
             <div className="w-full flex items-center justify-start ">
-              <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+              <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                 <p>Book a call</p>
                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
               </Link>

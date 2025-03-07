@@ -153,17 +153,17 @@ export default function Header() {
                 alt="logo"
                 className={`${!scrolling && "hidden"}`}
               />
-              <img
-                src={Logo}
-                width={100}
-                alt="logo"
-                className={`${scrolling && "hidden"}`}
-              />
+                <img
+                  src={Logo}
+                  width={100}
+                  alt="logo"
+                  className={`${scrolling && "hidden"}`}
+                />
               <div className="text-white text-xl font-medium">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
             </Link>
           </div>
           <div className="lg:flex gap-2 hidden">
-            <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold " target="_blank">
+            <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold " target="_blank">
               <p>Book a call</p>
               <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
             </Link>
@@ -220,7 +220,7 @@ export default function Header() {
               ))}
             </ul>
             <div className="flex flex-col gap-6 justify-center items-center">
-              <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+              <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                 <p>Book a call</p>
                 <img src={arrowIcon} alt="icon" width={20} className="" />
               </Link>

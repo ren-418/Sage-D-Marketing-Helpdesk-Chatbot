@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
+import Logo from '../../assets/images/logo.gif'
 
 const GetInTouch = () => {
 
@@ -51,26 +52,30 @@ const GetInTouch = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         const formEndpoint = "https://formsubmit.co/Danmushwana@sagedmarkting.co.za";
-    
+
         fetch(formEndpoint, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
         })
-        .then(response => {
-            if (response.ok) {
-                alert("Message sent successfully!");
-                
-            } else {
-                alert("Error sending message. Please try again.");
-            }
-        })
-        .catch(error => console.error("Error:", error));
+            .then(response => {
+                if (response.ok) {
+                    alert("Message sent successfully!");
+
+                } else {
+                    alert("Error sending message. Please try again.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
     };
     return (
         <section className="flex flex-col gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full bg-cover bg-center mt-48">
-            <div className="relative pl-5 md:text-xl text-sm">
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
+            <div className="relative flex items-center md:text-xl text-sm">
+                <img
+                    src={Logo}
+                    width={45}
+                    alt="logo"
+                />
                 Get in touch
             </div>
             <h1 className="text-black md:text-6xl text-4xl font-medium">Let’s make something <br className="hidden md:block" /> great together!</h1>

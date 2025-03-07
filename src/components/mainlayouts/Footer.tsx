@@ -122,11 +122,11 @@ export default function Footer() {
         <div className='text-white'>© 2025 SAGE-D Marketing. All rights reserved.</div>
       </div>
       <div className='flex flex-col gap-7'>
-        <Link to="/layouts/get-in-touch" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full ">
+        <Link to="/layouts/get-in-touch" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full ">
           <p>Get In Touch</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>
-        <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full target">
+        <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] hover:text-[#1D1D1B] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold w-[45%] md:w-full target">
           <p>Book a call</p>
           <img src={arrowIcon} alt="icon" width={20} className="" />
         </Link>

@@ -32,6 +32,10 @@ body {
 .btn-color {
   background-color: #549f57;
 }
+a:hover {
+  text-decoration: none;
+  color: #00ff26;
+}
 
 @layer components {
   .header-list-event>a {

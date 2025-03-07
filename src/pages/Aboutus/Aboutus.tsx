@@ -4,7 +4,7 @@ import image1 from '../../assets/images/about-us.png'
 import image2 from '../../assets/images/IMG_5069.png'
 import image3 from '../../assets/images/approach.png'
 
-
+import Logo from '../../assets/images/logo.gif'
 import brand1 from '../../assets/images/brands/1.png'
 import brand2 from '../../assets/images/brands/2.png'
 import brand3 from '../../assets/images/brands/3.png'
@@ -73,8 +73,12 @@ const AboutUs = () => {
                 </div>
             </section>
             <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
-                <div className="text-black pl-6 relative flex flex-col md:gap-10 gap-5 items-center text-xl md:mt-24 mt-16">
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
+                <div className="text-black flex items-center text-xl md:mt-24 mt-16">
+                    <img
+                        src={Logo}
+                        width={45}
+                        alt="logo"
+                    />
                     About Sage-D Marketing
                 </div>
                 <div className="flex flex-col gap-5 md:flex-row text-center md:text-left items-center justify-between">
@@ -90,8 +94,12 @@ const AboutUs = () => {
             </section>
             <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
                 <div className="text-black md:mt-24 mt-16 flex flex-col md:gap-10 gap-5 items-center">
-                    <div className="relative pl-5 md:text-xl text-sm">
-                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span>
+                    <div className="relative flex items-center md:text-xl text-sm">
+                        <img
+                            src={Logo}
+                            width={45}
+                            alt="logo"
+                        />
                         Our Clients
                     </div>
                     <div className="text-black  text-center md:text-6xl text-4xl font-medium">
@@ -113,7 +121,7 @@ const AboutUs = () => {
                     <div className="flex flex-col gap-10 items-start">
                         <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
                         <div className="w-full flex items-center justify-start ">
-                            <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+                            <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                                 <p>Book a call</p>
                                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
                             </Link>

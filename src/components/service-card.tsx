@@ -23,7 +23,7 @@ const ServiceCard = (props: ServiceCardProps) => {
                 {isOpenedDetail && (
                     <>
                         <div className="text-lg lg:text-xl ">{props.description}</div>
-                        <Link to="/layouts/services" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold  w-full 2xl:w-[40%] justify-center">
+                        <Link to="/layouts/services" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold  w-full 2xl:w-[40%] justify-center">
                             <p>Read More</p>
                             <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
                         </Link>
