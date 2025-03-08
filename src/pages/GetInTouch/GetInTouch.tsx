@@ -49,25 +49,30 @@ const GetInTouch = () => {
         }));
     };
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const formEndpoint = "https://formsubmit.co/Danmushwana@sagedmarkting.co.za";
-
-        fetch(formEndpoint, {
+      
+        // Use FormData to capture your form fields
+        const formData = new FormData(e.target as HTMLFormElement);
+      
+        try {
+          const response = await fetch("https://getform.io/f/bzywgoda", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert("Message sent successfully!");
-
-                } else {
-                    alert("Error sending message. Please try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
-    };
+            body: formData,
+            headers: {
+              'Accept': 'application/json',
+            },
+          });
+      
+          if (response.ok) {
+            alert("Email sent!");
+          } else {
+            alert("Failed to send email.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      };
     return (
         <section className="flex flex-col gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full bg-cover bg-center mt-48">
             <div className="relative flex items-center md:text-xl text-sm">
@@ -78,7 +83,7 @@ const GetInTouch = () => {
                 />
                 Get in touch
             </div>
-            <h1 className="text-black md:text-6xl text-4xl font-medium">Let’s make something <br className="hidden md:block" /> great together!</h1>
+            <h1 className="text-black md:text-6xl text-4xl font-medium title">Let’s make something <br className="hidden md:block" /> great together!</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                 <div className="flex flex-col">
                     <label className="text-black font-medium">Hi there! My name is</label>
@@ -100,7 +105,7 @@ const GetInTouch = () => {
                 <div className="flex flex-col md:col-span-2">
                     <label className="text-black font-medium">I require a project with these services</label>
                     <div className="flex flex-wrap gap-2 mt-2">
-                        {["Instagram reels", "Product video", "Lifestyle"].map((service, index) => (
+                        {["Web Development", "Web Design", "E-commerce Shop Setup","E-commerce Marketing"].map((service, index) => (
                             <button type="button" key={index} onClick={() => handleServiceSelection(service)} className={`border px-4 py-2 rounded-full ${formData.services.includes(service) ? "bg-black text-white" : "text-gray-700 hover:bg-black hover:text-white"}`}>
                                 {service}
                             </button>

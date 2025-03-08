@@ -82,7 +82,7 @@ const AboutUs = () => {
                     About Sage-D Marketing
                 </div>
                 <div className="flex flex-col gap-5 md:flex-row text-center md:text-left items-center justify-between">
-                    <div className="text-black md:text-6xl text-4xl font-medium w-full">
+                    <div className="text-black md:text-6xl text-4xl font-medium w-full  title">
                         Building Purpose-Driven Brands with Impactful Marketing
                     </div>
                     <div className='text-black text-lg w-full'>
@@ -102,7 +102,7 @@ const AboutUs = () => {
                         />
                         Our Clients
                     </div>
-                    <div className="text-black  text-center md:text-6xl text-4xl font-medium">
+                    <div className="text-black  text-center md:text-6xl text-4xl font-medium title">
                         Brands Who Trust Us
                     </div>
                 </div>
@@ -119,7 +119,7 @@ const AboutUs = () => {
             <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full bg-cover bg-center md:h-[90%] h-[40%] ">
                 <div className="w-full h-full bg-cover bg-center rounded-2xl flex gap-5 items-center justify-between md:px-20 lg:px-32 2xl:px-48 px-5 py-10 md:py-20" style={{ backgroundImage: `url(${bg2})` }}>
                     <div className="flex flex-col gap-10 items-start">
-                        <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
+                        <div className="text-white md:text-6xl text-4xl font-medium  title">Let's Get You <span className="text-[#00ff26]">Started!</span></div>
                         <div className="w-full flex items-center justify-start ">
                             <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                                 <p>Book a call</p>

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@mui/base": "^5.0.0-beta.68",
     "axios": "^1.7.9",
     "i18next": "^24.2.1",

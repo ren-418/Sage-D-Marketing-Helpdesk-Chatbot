@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 
 import ApproachVideo from '../../assets/video/Marketing video 2.mp4'
-
+import ApproachVideo2 from '../../assets/video/P57_Before-after.mp4'
 import arrowIcon from '../../assets/icons/arrow-right-top.svg'
 import Logo from '../../assets/images/logo.gif'
 
@@ -150,22 +150,22 @@ export default function Home({ }) {
 
   const portfolioItems = [
     {
-      title: "Cyber Security Landing Page",
+      title: " E-commerce Shop Setup",
       description: "Unveil a world of creativity, strategy, and technology as we offer a spectrum of services tailored to elevate your brand's presence.",
       image: portfolio1,
     },
     {
-      title: "E-Commerce App Development",
+      title: "E-commerce Marketing & Lead Generation",
       description: "Unveil a world of creativity, strategy, and technology as we offer a spectrum of services tailored to elevate your brand's presence.",
       image: portfolio2,
     },
     {
-      title: "Web Design For Your Business",
+      title: "Web Development & Design",
       description: "Unveil a world of creativity, strategy, and technology as we offer a spectrum of services tailored to elevate your brand's presence.",
       image: portfolio3,
     },
     {
-      title: "Shopify Responsive Website Design",
+      title: "UI/UX Design",
       description: "Unveil a world of creativity, strategy, and technology as we offer a spectrum of services tailored to elevate your brand's presence.",
       image: portfolio4,
     },
@@ -178,7 +178,7 @@ export default function Home({ }) {
     <>
       <section className="relative flex flex-col items-start gap-8  h-screen bg-cover bg-center lg:px-32 px-5 md:px-10" style={{ backgroundImage: `url(${bg})` }}>
         <div className="text-xl md:text-2xl mt-48 lg:mt-56 font-medium px-3 py-2 rounded-xl text-[#00ff26] cursor-pointer bg-[#282826] border-[#FFFFFF1A] border">Your Brand Our Passion</div>
-        <h1 className="text-white md:text-6xl text-4xl font-medium ">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
+        <h1 className="text-white md:text-6xl text-4xl  title ">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
         <p className="text-white text-lg md:text-xl ">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
         <div>
           <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B]  flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold hover:text-black" target="_blank">
@@ -242,7 +242,7 @@ export default function Home({ }) {
             {/* <span className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#00ff26] mr-2"></span> */}
             About Sage-D Marketing
           </div>
-          <div className="text-black  text-center md:text-6xl text-4xl font-medium">
+          <div className="text-black  text-center md:text-6xl text-4xl font-medium title">
             We are Creative Digital Agency
           </div>
           <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
@@ -269,7 +269,7 @@ export default function Home({ }) {
             />
             Our Clients
           </div>
-          <div className="text-black  text-center md:text-6xl text-4xl font-medium">
+          <div className="text-black  text-center md:text-6xl text-4xl font-medium title">
             Brands Who Trust Us
           </div>
         </div>
@@ -284,17 +284,17 @@ export default function Home({ }) {
         </div>
       </section>
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full">
-        <div className="text-black  text-center md:text-6xl text-4xl font-medium md:mt-24 mt-16">
+        <div className="text-black  text-center md:text-6xl text-4xl font-medium md:mt-24 mt-16 title">
           Featured Work
         </div>
         <div className="w-full grid xl:grid-cols-2 grid-cols-1 gap-y-5 gap-x-5">
           {portfolioItems.map((item, index) => (
-            <div className=" flex flex-col items-center gap-5" key={index}>
+            <Link to="/layouts/get-in-touch" className=" flex flex-col items-center gap-5" key={index}>
               <img src={item.image} alt={item.title} className="w-full max-w-[900px] rounded-2xl" />
               <div className="text-black text-center md:text-3xl text-xl font-medium">
                 {item.title}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
         <Link to="/layouts/our-work" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
@@ -334,15 +334,15 @@ export default function Home({ }) {
               width={45}
               alt="logo"
             />
-            How WE DO
+            The Sage-D Way
           </div>
-          <div className="text-black  text-center md:text-6xl text-4xl font-medium">
+          <div className="text-black  text-center md:text-6xl text-4xl font-medium title">
             The Framework Of Thought
           </div>
         </div>
         <div className="w-full flex items-center justify-center ">
           <video controls className="w-full max-w-6xl rounded-2xl">
-            <source src={ApproachVideo} type="video/mp4" />
+            <source src={ApproachVideo2} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
@@ -356,7 +356,7 @@ export default function Home({ }) {
       <section className="flex flex-col items-center gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full bg-cover bg-center md:h-[90%] h-[40%] ">
         <div className="w-full h-full bg-cover bg-center rounded-2xl flex gap-5 items-center justify-between md:px-20 lg:px-32 2xl:px-48 px-5 py-10 md:py-20" style={{ backgroundImage: `url(${bg2})` }}>
           <div className="flex flex-col gap-10 items-start">
-            <div className="text-white md:text-6xl text-4xl font-medium">Prepared to <br className="hidden md:block" /><span className="text-[#00ff26]">shine?</span></div>
+            <div className="text-white md:text-6xl text-4xl font-medium title">Let's Get You <span className="text-[#00ff26]">Started!</span></div>
             <div className="w-full flex items-center justify-start ">
               <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                 <p>Book a call</p>

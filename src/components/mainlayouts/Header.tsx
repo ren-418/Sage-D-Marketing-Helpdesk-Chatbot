@@ -159,7 +159,7 @@ export default function Header() {
                   alt="logo"
                   className={`${scrolling && "hidden"}`}
                 />
-              <div className="text-white text-xl font-medium">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
+              <div className="text-white text-xl font-medium title">Sage-D <br/><span className="text-[#00ff26]">Marketing</span> </div>
             </Link>
           </div>
           <div className="lg:flex gap-2 hidden">

@@ -29,7 +29,7 @@ export default function Modal({ showModal, onClose }: { showModal: boolean; onCl
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         
-        const formEndpoint = "https://formsubmit.co/Danmushwana@sagedmarkting.co.za";
+        const formEndpoint = "https://formsubmit.co/mrsteevtvw418@gmail.com";
     
         fetch(formEndpoint, {
             method: "POST",
