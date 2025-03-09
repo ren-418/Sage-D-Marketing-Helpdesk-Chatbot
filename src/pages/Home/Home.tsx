@@ -272,6 +272,7 @@ export default function Home({ }) {
           <div className="text-black  text-center md:text-6xl text-4xl font-medium title">
             Brands Who Trust Us
           </div>
+          
         </div>
         <div className="w-full grid grid-cols-3 lg:grid-cols-8 justify-items-center justify-center">
           {companyItems.map((item, index) => (
