@@ -1,14 +1,16 @@
-import { BrowserRouter } from "react-router-dom"
-import Router from "./router"
+import { BrowserRouter as Router } from "react-router-dom"
+import MainRouter from "./router";
+import ScrollToTop from "./components/scroll-top";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <Router>
+        <ScrollToTop/>
+        <MainRouter />
+      </Router>
       <ToastContainer />
     </>
 

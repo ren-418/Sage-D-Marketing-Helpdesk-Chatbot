@@ -5,8 +5,10 @@ export default function Modal({ showModal, onClose }: { showModal: boolean; onCl
         companyName: "",
         instagramHandle: "",
         editDescription: "",
+        postProductionBudget: "",
         referenceLink: "",
         rawFilesLink: "",
+
     });
 
     useEffect(() => {
@@ -97,7 +99,17 @@ export default function Modal({ showModal, onClose }: { showModal: boolean; onCl
                             required
                         />
                     </div>
-
+                    <div>
+                        <label className="block text-black font-medium">What is your Post Production Budget?</label>
+                        <input
+                            type="text"
+                            name="postProductionBudget"
+                            value={formData.postProductionBudget}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            required
+                        />
+                    </div>
                     <div>
                         <label className="block text-black font-medium">Send a video reference link</label>
                         <input

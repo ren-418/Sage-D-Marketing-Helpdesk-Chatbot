@@ -10,7 +10,7 @@ import GetInTouch from "../pages/GetInTouch"
 import Privacy from "../pages/Privacy"
 import TermsOfService from "../pages/TermsOfService"
 
-const Router: React.FC = () => {
+const MainRouter: React.FC = () => {
     return (
         <Routes>
             <Route path="/" element={<Navigate to="layouts/home" />} />
@@ -30,4 +30,4 @@ const Router: React.FC = () => {
 }
 
 
-export default Router
+export default MainRouter
