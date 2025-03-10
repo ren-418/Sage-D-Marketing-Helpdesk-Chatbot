@@ -4,6 +4,7 @@ import arrowIcon from '../../assets/icons/arrow-right-top.svg'
 import Logo from '../../assets/images/logo.gif'
 
 const GetInTouch = () => {
+    const [isSending, setIsSending] = useState(false);
 
     interface FormData {
         name: any;
@@ -51,28 +52,32 @@ const GetInTouch = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-      
+
         // Use FormData to capture your form fields
         const formData = new FormData(e.target as HTMLFormElement);
-      
+        setIsSending(true);
         try {
-          const response = await fetch("https://getform.io/f/bzywgoda", {
-            method: "POST",
-            body: formData,
-            headers: {
-              'Accept': 'application/json',
-            },
-          });
-      
-          if (response.ok) {
-            alert("Email sent!");
-          } else {
-            alert("Failed to send email.");
-          }
+
+            const response = await fetch("https://getform.io/f/bejrvlma ", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+
+
+            if (response.ok) {
+                alert("Email sent!");
+            } else {
+                alert("Failed to send email.");
+            }
+            setIsSending(false);
         } catch (error) {
-          console.error("Error:", error);
+            console.error("Error:", error);
+            setIsSending(false);
         }
-      };
+    };
     return (
         <section className="flex flex-col gap-5 md:gap-10 lg:px-32 px-5 md:px-10 w-full bg-cover bg-center mt-48">
             <div className="relative flex items-center md:text-xl text-sm">
@@ -105,7 +110,7 @@ const GetInTouch = () => {
                 <div className="flex flex-col md:col-span-2">
                     <label className="text-black font-medium">I require a project with these services</label>
                     <div className="flex flex-wrap gap-2 mt-2">
-                        {["Web Development", "Web Design", "E-commerce Shop Setup","E-commerce Marketing"].map((service, index) => (
+                        {["Web Development", "Web Design", "E-commerce Shop Setup", "E-commerce Marketing"].map((service, index) => (
                             <button type="button" key={index} onClick={() => handleServiceSelection(service)} className={`border px-4 py-2 rounded-full ${formData.services.includes(service) ? "bg-black text-white" : "text-gray-700 hover:bg-black hover:text-white"}`}>
                                 {service}
                             </button>
@@ -136,7 +141,13 @@ const GetInTouch = () => {
 
                 <div className="md:col-span-2">
                     <button type="submit" className="bg-[#00ff26] text-[#1D1D1B] flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
-                        <p>Let's get started</p>
+
+                        {
+                            isSending && <p>Sending...</p>
+                        }
+                        {
+                            !isSending && <p>Let's Get started</p>
+                        }
                         <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
                     </button>
                 </div>

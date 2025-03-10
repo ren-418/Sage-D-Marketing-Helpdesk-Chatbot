@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function Modal({ showModal, onClose }: { showModal: boolean; onClose: () => void }): JSX.Element | null {
+    const [isSending, setIsSending] = useState(false);
     const [formData, setFormData] = useState({
         companyName: "",
         instagramHandle: "",
@@ -28,32 +29,39 @@ export default function Modal({ showModal, onClose }: { showModal: boolean; onCl
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        const formEndpoint = "https://formsubmit.co/mrsteevtvw418@gmail.com";
-    
-        fetch(formEndpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        })
-        .then(response => {
+
+        const formData = new FormData(e.target as HTMLFormElement);
+        setIsSending(true);
+        try {
+
+            const response = await fetch("https://getform.io/f/bejrvlma ", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+
+
             if (response.ok) {
-                alert("Form submitted successfully!");
-                onClose();
+                alert("Email sent!");
             } else {
-                alert("Error submitting form. Please try again.");
+                alert("Failed to send email.");
             }
-        })
-        .catch(error => console.error("Error:", error));
+            setIsSending(false);
+        } catch (error) {
+            console.error("Error:", error);
+            setIsSending(false);
+        }
     };
-    
+
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
             <div className="bg-white rounded-lg shadow-lg w-full max-w-[800px] p-6 relative">
-                
+
                 <div className="flex justify-between items-center border-b pb-3 text-black">
                     <h1 className="text-2xl font-medium">Fill in Form</h1>
                     <button onClick={onClose} aria-label="Close" className="text-black hover:opacity-70">
@@ -147,7 +155,13 @@ export default function Modal({ showModal, onClose }: { showModal: boolean; onCl
                             type="submit"
                             className="px-4 py-2 rounded bg-[#00ff26] text-black font-semibold hover:bg-green-500"
                         >
-                            Submit
+                            {
+                                isSending && <p>Sending...</p>
+                            }
+                            {
+                                !isSending && <p>Submit</p>
+                            }
+
                         </button>
                     </div>
                 </form>
