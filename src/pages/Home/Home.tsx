@@ -243,7 +243,7 @@ export default function Home({ }) {
             About Sage-D Marketing
           </div>
           <div className="text-black  text-center md:text-6xl text-4xl font-medium title">
-            We are Creative Digital Agency
+            We Are A Creative & Digital Marketing Agency
           </div>
           <Link to="/layouts/about-us" className="flex gap-1 px-6 py-4 cursor-pointer rounded-xl md:text-xl text-base">
             <p>More aboout us</p>
@@ -272,7 +272,7 @@ export default function Home({ }) {
           <div className="text-black  text-center md:text-6xl text-4xl font-medium title">
             Brands Who Trust Us
           </div>
-          
+
         </div>
         <div className="w-full grid grid-cols-3 lg:grid-cols-8 justify-items-center justify-center">
           {companyItems.map((item, index) => (
