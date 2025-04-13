@@ -1,0 +1,49 @@
+.sia-trigger {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00ff26;
+  color: #1D1D1B;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 255, 38, 0.2);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.sia-trigger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 38, 0.3);
+}
+
+.sia-trigger.hidden {
+  display: none;
+}
+
+.sia-trigger-icon {
+  font-size: 20px;
+}
+
+.sia-trigger-text {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .sia-trigger {
+    padding: 10px 20px;
+  }
+  
+  .sia-trigger-text {
+    display: none;
+  }
+  
+  .sia-trigger-icon {
+    font-size: 24px;
+  }
+} 
