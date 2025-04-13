@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { 
   SIA_CONFIG, 
   BRAND_VOICE, 
@@ -37,8 +36,9 @@ const SIA: React.FC<SIAProps> = ({ onClose }) => {
 
   useEffect(() => {
     // Determine current page
+
     const path = location.pathname.split('/').pop() || 'homepage';
-    setCurrentPage(path);
+    setCurrentPage(path || currentPage);
     
     // Initialize with page-specific message
     const pageBehavior = PAGE_SPECIFIC_BEHAVIOR[path as keyof typeof PAGE_SPECIFIC_BEHAVIOR];

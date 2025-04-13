@@ -41,20 +41,20 @@ export const chatWithAI = async (messages: ChatMessage[]): Promise<ChatResponse>
 };
 
 // In production, implement these functions with actual OpenAI API calls
-export const generateServiceSuggestions = async (userResponses: Record<string, string>): Promise<string[]> => {
-  // Mock implementation
-  return [
-    "🎯 Complete Brand Strategy & Design",
-    "💰 Conversion-Focused Marketing",
-    "🚀 SEO & Paid Media Management"
-  ];
-};
+// export const generateServiceSuggestions = async (userResponses: Record<string, string>): Promise<string[]> => {
+//   // Mock implementation
+//   return [
+//     "🎯 Complete Brand Strategy & Design",
+//     "💰 Conversion-Focused Marketing",
+//     "🚀 SEO & Paid Media Management"
+//   ];
+// };
 
-export const generateFollowUpQuestions = async (context: string): Promise<string[]> => {
-  // Mock implementation
-  return [
-    "What's your current marketing budget?",
-    "When would you like to start?",
-    "Have you worked with a marketing agency before?"
-  ];
-}; 
+// export const generateFollowUpQuestions = async (context: string): Promise<string[]> => {
+//   // Mock implementation
+//   return [
+//     "What's your current marketing budget?",
+//     "When would you like to start?",
+//     "Have you worked with a marketing agency before?"
+//   ];
+// }; 
