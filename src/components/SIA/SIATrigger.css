@@ -2,14 +2,14 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
   background: #00ff26;
   color: #1D1D1B;
   border: none;
   border-radius: 30px;
-  padding: 12px 24px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   cursor: pointer;
   font-weight: 600;
   box-shadow: 0 4px 15px rgba(0, 255, 38, 0.2);

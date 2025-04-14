@@ -1,6 +1,10 @@
 // This is a mock implementation of the OpenAI service
 // Replace with actual OpenAI API integration in production
 
+import { Message, UserSession } from '../components/SIA/types';
+
+const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+
 export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
@@ -57,4 +61,44 @@ export const chatWithAI = async (messages: ChatMessage[]): Promise<ChatResponse>
 //     "When would you like to start?",
 //     "Have you worked with a marketing agency before?"
 //   ];
-// }; 
+// };
+
+export const generateResponse = async (
+  messages: Message[],
+  userSession: UserSession,
+  pageContext: string
+): Promise<string> => {
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4",
+        messages: [
+          {
+            role: "system",
+            content: `You are SIA (SAGE-D INTERACTIVE ASSISTANT), a bold and strategic marketing assistant. 
+            Current page: ${pageContext}
+            User qualification: ${JSON.stringify(userSession.qualification)}
+            Brand voice: Bold, strategic, slick & sassy, creative, confident closer`
+          },
+          ...messages.map(msg => ({
+            role: msg.type === 'user' ? 'user' : 'assistant',
+            content: msg.content
+          }))
+        ],
+        temperature: 0.7,
+        max_tokens: 150
+      })
+    });
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.error('Error generating response:', error);
+    return "I apologize, but I'm having trouble processing that right now. Could you try again?";
+  }
+}; 

@@ -1,161 +1,170 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { 
-  SIA_CONFIG, 
-  BRAND_VOICE, 
-  QUALIFICATION_FLOW, 
-  SERVICE_RESPONSES,
-  PAGE_SPECIFIC_BEHAVIOR,
-  SERVICE_BUNDLES
-} from '../../constants/sia';
+import React, { useState, useEffect, useRef } from 'react';
+import { Message, UserSession, Service, PageContext } from './types';
+import { SIA_CONFIG, QUALIFICATION_QUESTIONS, PAGE_SPECIFIC_BEHAVIOR } from './config';
+import { trackChatEvent, trackConversion } from '../../services/analytics';
+import { saveSession, loadSession, updateSession } from '../../services/session';
 import './SIA.css';
-
-interface Message {
-  type: 'user' | 'bot';
-  content: string;
-  options?: string[];
-  metadata?: {
-    type: 'qualification' | 'service' | 'booking' | 'followup';
-    data?: any;
-  };
-}
 
 interface SIAProps {
   onClose: () => void;
+  pageContext?: PageContext;
 }
 
-const SIA: React.FC<SIAProps> = ({ onClose }) => {
-  const location = useLocation();
-  const [isOpen, setIsOpen] = useState(true);
+const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [currentQuestion, setCurrentQuestion] = useState<keyof typeof QUALIFICATION_FLOW>('Q1');
-  const [userResponses, setUserResponses] = useState<Record<string, string>>({});
   const [isTyping, setIsTyping] = useState(false);
-  const [currentPage, setCurrentPage] = useState<string>('homepage');
+  const [userSession, setUserSession] = useState<UserSession>(() => {
+    const savedSession = loadSession();
+    return savedSession || {
+      id: Date.now().toString(),
+      lastInteraction: new Date(),
+      qualification: {
+        needs: [],
+        businessType: '',
+        hasWebsite: false,
+        budget: ''
+      }
+    };
+  });
+  const [currentQualificationStep, setCurrentQualificationStep] = useState(0);
+  const [isOpen, setIsOpen] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Determine current page
-
-    const path = location.pathname.split('/').pop() || 'homepage';
-    setCurrentPage(path || currentPage);
-    
-    // Initialize with page-specific message
-    const pageBehavior = PAGE_SPECIFIC_BEHAVIOR[path as keyof typeof PAGE_SPECIFIC_BEHAVIOR];
-    if (pageBehavior) {
-      addBotMessage(pageBehavior.initialMessage, pageBehavior.actions);
-    } else {
-      // Default behavior if page not found
-      addBotMessage(PAGE_SPECIFIC_BEHAVIOR.homepage.initialMessage, 
-        PAGE_SPECIFIC_BEHAVIOR.homepage.actions);
-    }
-  }, [location]);
-
-  useEffect(() => {
     scrollToBottom();
+    trackChatEvent('open', { pageContext });
   }, [messages]);
 
+  useEffect(() => {
+    const pageBehavior = PAGE_SPECIFIC_BEHAVIOR[pageContext.pageType] || PAGE_SPECIFIC_BEHAVIOR.home;
+    addBotMessage(pageBehavior.initialMessage, pageBehavior.actions);
+  }, [pageContext.pageType]);
+
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const addBotMessage = (content: string, options?: string[], metadata?: Message['metadata']) => {
-    setIsTyping(true);
-    setTimeout(() => {
-      setMessages(prev => [...prev, { type: 'bot', content, options, metadata }]);
-      setIsTyping(false);
-    }, 1000);
+  const addBotMessage = (content: string, options?: string[]) => {
+    setMessages(prev => [...prev, { type: 'bot', content, options }]);
+    trackChatEvent('bot_message', { content, options });
   };
 
   const handleUserResponse = async (response: string) => {
     setMessages(prev => [...prev, { type: 'user', content: response }]);
-    setUserResponses(prev => ({ ...prev, [currentQuestion]: response }));
+    setIsTyping(true);
 
-    // Check if this is a service-specific response
-    const serviceMatch = Object.entries(SERVICE_RESPONSES).find(([_, data]) => 
-      data.prompt.toLowerCase() === response.toLowerCase()
-    );
-
-    if (serviceMatch) {
-      const [service, data] = serviceMatch;
-      addBotMessage(data.response, data.actions, { type: 'service', data: { service } });
-      return;
-    }
-
-    // Handle qualification flow
-    const questions = Object.keys(QUALIFICATION_FLOW) as (keyof typeof QUALIFICATION_FLOW)[];
-    const currentIndex = questions.indexOf(currentQuestion);
-    
-    if (currentIndex < questions.length - 1) {
-      const nextQuestion = questions[currentIndex + 1];
-      setCurrentQuestion(nextQuestion);
-      addBotMessage(QUALIFICATION_FLOW[nextQuestion].question, 
-        QUALIFICATION_FLOW[nextQuestion].options,
-        { type: 'qualification' });
-    } else {
-      handleQualificationComplete();
+    try {
+      if (currentQualificationStep < QUALIFICATION_QUESTIONS.length) {
+        // Simulate bot thinking for qualification responses
+        await new Promise(resolve => setTimeout(resolve, 800));
+        handleQualificationResponse(response);
+      } else {
+        // Simulate bot thinking for service responses
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        handleServiceResponse(response);
+      }
+    } catch (error) {
+      console.error('Error processing response:', error);
+      addBotMessage("I apologize, but I'm having trouble processing your request. Could you try again?");
+    } finally {
+      setIsTyping(false);
     }
   };
 
-  const handleQualificationComplete = () => {
-    const suggestedServices = getSuggestedServices(userResponses);
-    const bundle = getServiceBundle(userResponses);
+  const handleQualificationResponse = (response: string) => {
+    const currentQuestion = QUALIFICATION_QUESTIONS[currentQualificationStep];
+    const key = currentQuestion.key as keyof typeof userSession.qualification;
+
+    const updatedSession = {
+      ...userSession,
+      qualification: {
+        ...userSession.qualification,
+        [key]: response
+      }
+    };
+
+    setUserSession(updatedSession);
+    updateSession(updatedSession);
+    trackChatEvent('qualification_response', { question: currentQuestion.key, response });
+
+    if (currentQualificationStep < QUALIFICATION_QUESTIONS.length - 1) {
+      setCurrentQualificationStep(prev => prev + 1);
+      const nextQuestion = QUALIFICATION_QUESTIONS[currentQualificationStep + 1];
+      addBotMessage(nextQuestion.question, nextQuestion.options);
+    } else {
+      suggestServices();
+      trackConversion('qualification_complete', updatedSession.qualification);
+    }
+  };
+
+  const handleServiceResponse = (response: string) => {
+    const service = SIA_CONFIG.services.find(s => s.name.toLowerCase() === response.toLowerCase());
     
+    if (service) {
+      showServiceDetails(service);
+      trackConversion('service_selected', service.id);
+    } else if (response.toLowerCase().includes('book') || response.toLowerCase().includes('schedule')) {
+      offerBooking();
+      trackConversion('booking_initiated', {});
+    } else if (response.toLowerCase().includes('portfolio') || response.toLowerCase().includes('work')) {
+      showPortfolio();
+      trackChatEvent('portfolio_view', {});
+    } else if (response.toLowerCase().includes('case study') || response.toLowerCase().includes('results')) {
+      showCaseStudies();
+      trackChatEvent('case_study_view', {});
+    } else {
+      addBotMessage("I'm not sure I understand. Would you like to:", [
+        "Explore Services",
+        "See Our Work",
+        "Book Strategy Call"
+      ]);
+    }
+  };
+
+  const suggestServices = () => {
+    const suggestedServices = SIA_CONFIG.services.filter(service => {
+      // Add logic to filter services based on qualification
+      return true;
+    });
+
+    const serviceNames = suggestedServices.map(s => s.name);
     addBotMessage(
-      `Perfect! Based on your needs, I think we'd be a great fit. Here's what I recommend:\n\n${suggestedServices}\n\n${bundle.name} (${bundle.price})\n${bundle.services.join('\n')}\n\nWant to skip the back-and-forth? Book a strategy call with our team now!`,
-      ["Book Strategy Call", "Send me more info"],
-      { type: 'booking' }
+      "Based on your needs, I recommend these services:",
+      [...serviceNames, "See Portfolio", "Book Strategy Call"]
     );
   };
 
-  const getSuggestedServices = (responses: Record<string, string>): string => {
-    let suggestions = [];
-    
-    if (responses.Q1 === "Branding" || responses.Q1 === "All of the above") {
-      suggestions.push("🎯 Complete Brand Strategy & Design");
-    }
-    if (responses.Q1 === "Sales" || responses.Q1 === "All of the above") {
-      suggestions.push("💰 Conversion-Focused Marketing");
-    }
-    if (responses.Q1 === "Traffic" || responses.Q1 === "All of the above") {
-      suggestions.push("🚀 SEO & Paid Media Management");
-    }
-    
-    return suggestions.join("\n");
+  const showServiceDetails = (service: Service) => {
+    addBotMessage(
+      `${service.description}\n\nWant to see our work in this area or book a consultation?`,
+      ["See Portfolio", "Book Strategy Call"]
+    );
   };
 
-  const getServiceBundle = (responses: Record<string, string>) => {
-    if (responses.Q1 === "Branding") {
-      return SERVICE_BUNDLES.branding;
-    } else if (responses.Q1 === "Sales") {
-      return SERVICE_BUNDLES.marketing;
-    } else if (responses.Q1 === "Traffic") {
-      return SERVICE_BUNDLES.website;
-    }
-    return SERVICE_BUNDLES.branding; // Default
+  const offerBooking = () => {
+    addBotMessage(
+      "Ready to make moves? Let's schedule your strategy session.",
+      ["Book Now", "Maybe Later"]
+    );
   };
 
-  const handleOptionClick = async (option: string) => {
-    if (option === "Book Strategy Call") {
-      window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
-      addBotMessage(BRAND_VOICE.closer, undefined, { type: 'booking' });
-    } else if (option === "Send me more info") {
-      addBotMessage("Sure thing! Just drop your email below and I'll send over our proposal and portfolio. 📧", 
-        ["Enter email"],
-        { type: 'followup' });
-    } else if (option.startsWith("Show ")) {
-      // Handle portfolio/case study display
-      const item = option.replace("Show ", "").toLowerCase();
-      addBotMessage(`Here are some amazing ${item} examples from our portfolio...`, 
-        ["Book Consultation", "See More"],
-        { type: 'service' });
-    } else {
-      handleUserResponse(option);
-    }
+  const showPortfolio = () => {
+    addBotMessage(
+      "Check out our latest work. Which area interests you most?",
+      SIA_CONFIG.services.map(s => s.name)
+    );
+  };
+
+  const showCaseStudies = () => {
+    addBotMessage(
+      "Here are some of our success stories. Which service would you like to learn more about?",
+      SIA_CONFIG.services.map(s => s.name)
+    );
   };
 
   const handleClose = () => {
     setIsOpen(false);
+    trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
     onClose();
   };
 
@@ -165,8 +174,11 @@ const SIA: React.FC<SIAProps> = ({ onClose }) => {
     <div className={`sia-container ${isOpen ? 'open' : ''}`}>
       <div className="sia-header">
         <div className="sia-title">
-          <span className="sia-avatar">S</span>
-          <h3>{SIA_CONFIG.name}</h3>
+          <span className="sia-avatar">{SIA_CONFIG.avatar}</span>
+          <div className="sia-title-text">
+            <h3>{SIA_CONFIG.name}</h3>
+            <span className="sia-full-name">{SIA_CONFIG.fullName}</span>
+          </div>
         </div>
         <button onClick={handleClose} className="close-button">×</button>
       </div>
@@ -174,7 +186,7 @@ const SIA: React.FC<SIAProps> = ({ onClose }) => {
       <div className="messages-container">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.type}`}>
-            {message.type === 'bot' && <div className="bot-avatar">S</div>}
+            {message.type === 'bot' && <div className="bot-avatar">{SIA_CONFIG.avatar}</div>}
             <div className="message-content">
               {message.content}
               {message.options && (
@@ -182,7 +194,7 @@ const SIA: React.FC<SIAProps> = ({ onClose }) => {
                   {message.options.map((option, optIndex) => (
                     <button
                       key={optIndex}
-                      onClick={() => handleOptionClick(option)}
+                      onClick={() => handleUserResponse(option)}
                       className="option-button"
                     >
                       {option}
@@ -194,10 +206,15 @@ const SIA: React.FC<SIAProps> = ({ onClose }) => {
           </div>
         ))}
         {isTyping && (
-          <div className="typing-indicator">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div className="message bot">
+            <div className="bot-avatar">{SIA_CONFIG.avatar}</div>
+            <div className="message-content">
+              <div className="typing-indicator">
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
+              </div>
+            </div>
           </div>
         )}
         <div ref={messagesEndRef} />
