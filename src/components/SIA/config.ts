@@ -1,4 +1,4 @@
-import { SIAConfig, Service } from './types';
+import { SIAConfig } from './types';
 
 export const SIA_CONFIG: SIAConfig = {
   name: "SIA",
