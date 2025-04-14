@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Message, UserSession, Service, PageContext } from './types';
 import { SIA_CONFIG, QUALIFICATION_QUESTIONS, PAGE_SPECIFIC_BEHAVIOR } from './config';
 import { trackChatEvent, trackConversion } from '../../services/analytics';
-import { saveSession, loadSession, updateSession } from '../../services/session';
+import { loadSession, updateSession } from '../../services/session';
 import './SIA.css';
 
 interface SIAProps {
@@ -124,6 +124,9 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
   const suggestServices = () => {
     const suggestedServices = SIA_CONFIG.services.filter(service => {
       // Add logic to filter services based on qualification
+      if (userSession.qualification.needs.includes('website')) {
+        return service.name.toLowerCase().includes('website');
+      }
       return true;
     });
 
