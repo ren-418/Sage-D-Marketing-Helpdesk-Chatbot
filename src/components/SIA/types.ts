@@ -15,10 +15,17 @@ export interface UserSession {
   qualification: {
     needs: string[];
     businessType: string;
-    hasWebsite: boolean;
+    hasWebsite: string;
+    websiteSatisfaction?: string;
     budget: string;
   };
   email?: string;
+  lastServiceViewed?: string;
+}
+
+export interface ServicePrompts {
+  initial: string;
+  followUp: string;
 }
 
 export interface Service {
@@ -28,6 +35,7 @@ export interface Service {
   portfolioLink?: string;
   caseStudyLink?: string;
   bookingLink: string;
+  prompts: ServicePrompts;
 }
 
 export interface PageContext {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Message, UserSession, Service, PageContext } from './types';
-import { SIA_CONFIG, QUALIFICATION_QUESTIONS, PAGE_SPECIFIC_BEHAVIOR } from './config';
+import { SIA_CONFIG, QUALIFICATION_QUESTIONS, PAGE_SPECIFIC_BEHAVIOR, EMAIL_CAPTURE_PROMPTS } from './config';
 import { trackChatEvent, trackConversion } from '../../services/analytics';
 import { loadSession, updateSession } from '../../services/session';
 import './SIA.css';
@@ -13,6 +14,7 @@ interface SIAProps {
 const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const navigate = useNavigate();
   const [userSession, setUserSession] = useState<UserSession>(() => {
     const savedSession = loadSession();
     return savedSession || {
@@ -21,13 +23,15 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       qualification: {
         needs: [],
         businessType: '',
-        hasWebsite: false,
+        hasWebsite: '',
+        websiteSatisfaction: '',
         budget: ''
       }
     };
   });
   const [currentQualificationStep, setCurrentQualificationStep] = useState(0);
   const [isOpen, setIsOpen] = useState(true);
+  const [isEmailCapture, setIsEmailCapture] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -54,12 +58,12 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     setIsTyping(true);
 
     try {
-      if (currentQualificationStep < QUALIFICATION_QUESTIONS.length) {
-        // Simulate bot thinking for qualification responses
+      if (isEmailCapture) {
+        handleEmailCapture(response);
+      } else if (currentQualificationStep < QUALIFICATION_QUESTIONS.length) {
         await new Promise(resolve => setTimeout(resolve, 800));
         handleQualificationResponse(response);
       } else {
-        // Simulate bot thinking for service responses
         await new Promise(resolve => setTimeout(resolve, 1200));
         handleServiceResponse(response);
       }
@@ -87,20 +91,71 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     updateSession(updatedSession);
     trackChatEvent('qualification_response', { question: currentQuestion.key, response });
 
-    if (currentQualificationStep < QUALIFICATION_QUESTIONS.length - 1) {
+    // Check if we should show the next question
+    const nextQuestion = QUALIFICATION_QUESTIONS[currentQualificationStep + 1];
+    if (nextQuestion && (!nextQuestion.showIf || nextQuestion.showIf(updatedSession))) {
       setCurrentQualificationStep(prev => prev + 1);
-      const nextQuestion = QUALIFICATION_QUESTIONS[currentQualificationStep + 1];
       addBotMessage(nextQuestion.question, nextQuestion.options);
+    } else if (currentQualificationStep < QUALIFICATION_QUESTIONS.length - 1) {
+      setCurrentQualificationStep(prev => prev + 1);
+      const nextVisibleQuestion = QUALIFICATION_QUESTIONS.find((q, i) => 
+        i > currentQualificationStep && (!q.showIf || q.showIf(updatedSession))
+      );
+      if (nextVisibleQuestion) {
+        addBotMessage(nextVisibleQuestion.question, nextVisibleQuestion.options);
+      } else {
+        handleQualificationComplete(updatedSession);
+      }
     } else {
-      suggestServices();
-      trackConversion('qualification_complete', updatedSession.qualification);
+      handleQualificationComplete(updatedSession);
     }
   };
 
+  const handleQualificationComplete = (session: UserSession) => {
+    trackConversion('qualification_complete', session.qualification);
+    
+    // Suggest services based on qualification
+    const suggestedServices = SIA_CONFIG.services.filter(service => {
+      if (session.qualification.needs.includes('website') || 
+          session.qualification.websiteSatisfaction === 'No') {
+        return service.id === 'web';
+      }
+      return true;
+    });
+
+    const serviceNames = suggestedServices.map(s => s.name);
+    
+    // First show service suggestions
+    addBotMessage(
+      `Based on your needs, I recommend these services: ${serviceNames.join(', ')}.`,
+      serviceNames
+    );
+
+    // After a short delay, show the next steps
+    setTimeout(() => {
+      addBotMessage(
+        "You seem like a great fit for our services! Would you like to:",
+        ["Book a Call", "Enter Email for More Info", "See Portfolio"]
+      );
+    }, 1500);
+  };
+
   const handleServiceResponse = (response: string) => {
+    if (response === "Book a Call") {
+      navigate("https://calendly.com/d/cqyy-j3g-6yg");
+      return;
+    } else if (response === "Enter Email for More Info") {
+      navigate("/layouts/get-in-touch");
+      return;
+    } else if (response === "See Portfolio") {
+      navigate("/layouts/our-work");
+      return;
+    }
+
     const service = SIA_CONFIG.services.find(s => s.name.toLowerCase() === response.toLowerCase());
     
     if (service) {
+      setUserSession(prev => ({ ...prev, lastServiceViewed: service.id }));
       showServiceDetails(service);
       trackConversion('service_selected', service.id);
     } else if (response.toLowerCase().includes('book') || response.toLowerCase().includes('schedule')) {
@@ -113,41 +168,64 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       showCaseStudies();
       trackChatEvent('case_study_view', {});
     } else {
-      addBotMessage("I'm not sure I understand. Would you like to:", [
-        "Explore Services",
-        "See Our Work",
-        "Book Strategy Call"
-      ]);
+      // If we don't understand the response, show qualification-based options
+      if (currentQualificationStep >= QUALIFICATION_QUESTIONS.length) {
+        addBotMessage("I'm not sure I understand. Would you like to:", [
+          "Book a Call",
+          "Enter Email for More Info",
+          "See Portfolio"
+        ]);
+      } else {
+        addBotMessage("I'm not sure I understand. Would you like to:", [
+          "Explore Services",
+          "See Our Work",
+          "Book Strategy Call"
+        ]);
+      }
     }
   };
 
-  const suggestServices = () => {
-    const suggestedServices = SIA_CONFIG.services.filter(service => {
-      // Add logic to filter services based on qualification
-      if (userSession.qualification.needs.includes('website')) {
-        return service.name.toLowerCase().includes('website');
+  const handleEmailCapture = (email: string) => {
+    if (email.includes('@') && email.includes('.')) {
+      const updatedSession = {
+        ...userSession,
+        email
+      };
+      setUserSession(updatedSession);
+      updateSession(updatedSession);
+      setIsEmailCapture(false);
+      trackConversion('email_captured', {});
+      
+      if (userSession.lastServiceViewed) {
+        const service = SIA_CONFIG.services.find(s => s.id === userSession.lastServiceViewed);
+        if (service) {
+          addBotMessage(`Great! I'll send you detailed information about our ${service.name} services. Would you like to:`, [
+            "Book Strategy Call",
+            "See More Services"
+          ]);
+        }
+      } else {
+        addBotMessage("Thanks! I'll send you our portfolio and proposal. Would you like to:", [
+          "Book Strategy Call",
+          "See More Services"
+        ]);
       }
-      return true;
-    });
-
-    const serviceNames = suggestedServices.map(s => s.name);
-    addBotMessage(
-      "Based on your needs, I recommend these services:",
-      [...serviceNames, "See Portfolio", "Book Strategy Call"]
-    );
+    } else {
+      addBotMessage("Please enter a valid email address.");
+    }
   };
 
   const showServiceDetails = (service: Service) => {
     addBotMessage(
-      `${service.description}\n\nWant to see our work in this area or book a consultation?`,
-      ["See Portfolio", "Book Strategy Call"]
+      `${service.prompts.initial}\n\n${service.prompts.followUp}`,
+      ["See Portfolio", "Book a Call", "Enter Email for More Info"]
     );
   };
 
   const offerBooking = () => {
     addBotMessage(
       "Ready to make moves? Let's schedule your strategy session.",
-      ["Book Now", "Maybe Later"]
+      ["Book a Call", "Enter Email for More Info", "Maybe Later"]
     );
   };
 
@@ -166,6 +244,11 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
   };
 
   const handleClose = () => {
+    if (!userSession.email) {
+      setIsEmailCapture(true);
+      addBotMessage(EMAIL_CAPTURE_PROMPTS.beforeExit);
+      return;
+    }
     setIsOpen(false);
     trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
     onClose();
@@ -194,15 +277,28 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
               {message.content}
               {message.options && (
                 <div className="options-container">
-                  {message.options.map((option, optIndex) => (
-                    <button
-                      key={optIndex}
-                      onClick={() => handleUserResponse(option)}
-                      className="option-button"
-                    >
-                      {option}
-                    </button>
-                  ))}
+                  {message.options.map((option, optIndex) => {
+                    const handleClick = () => {
+                      if (option === "Book a Call") {
+                        window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
+                      } else if (option === "Enter Email for More Info") {
+                        navigate("/layouts/get-in-touch");
+                      } else if (option === "See Portfolio") {
+                        navigate("/layouts/our-work");
+                      } else {
+                        handleUserResponse(option);
+                      }
+                    };
+                    return (
+                      <button
+                        key={optIndex}
+                        onClick={handleClick}
+                        className="option-button"
+                      >
+                        {option}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -225,8 +321,8 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
 
       <div className="input-container">
         <input
-          type="text"
-          placeholder="Type your message..."
+          type={isEmailCapture ? "email" : "text"}
+          placeholder={isEmailCapture ? "Enter your email..." : "Type your message..."}
           className="message-input"
           onKeyPress={(e) => {
             if (e.key === 'Enter') {
