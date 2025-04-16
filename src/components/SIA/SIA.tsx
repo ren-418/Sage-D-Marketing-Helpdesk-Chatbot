@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Message, UserSession, Service, PageContext } from './types';
 import { SIA_CONFIG, QUALIFICATION_QUESTIONS, PAGE_SPECIFIC_BEHAVIOR, EMAIL_CAPTURE_PROMPTS } from './config';
 import { trackChatEvent, trackConversion } from '../../services/analytics';
 import { loadSession, updateSession } from '../../services/session';
 import './SIA.css';
-
 interface SIAProps {
   onClose: () => void;
   pageContext?: PageContext;
@@ -44,6 +44,11 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     addBotMessage(pageBehavior.initialMessage, pageBehavior.actions);
   }, [pageContext.pageType]);
 
+
+  const generateConversationId = () => {
+    return 'conv-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -53,13 +58,15 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     trackChatEvent('bot_message', { content, options });
   };
 
-  const handleUserResponse = async (response: string) => {
+  const handleUserResponse = async (response: string, isCustomChat: boolean) => {
     setMessages(prev => [...prev, { type: 'user', content: response }]);
     setIsTyping(true);
-
+    console.log('isCustomChat :::', isCustomChat);
     try {
-      if (isEmailCapture) {
-        handleEmailCapture(response);
+      if (!!isCustomChat) {
+        await handleCustomChat(response);
+      } else if (isEmailCapture) {
+        await handleEmailCapture(response);
       } else if (currentQualificationStep < QUALIFICATION_QUESTIONS.length) {
         await new Promise(resolve => setTimeout(resolve, 800));
         handleQualificationResponse(response);
@@ -73,6 +80,21 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     } finally {
       setIsTyping(false);
     }
+  };
+
+  const handleCustomChat = async (response: string) => {
+    const conversationId = generateConversationId();
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chat/message`, {
+      message: response,
+      conversationId
+    });
+    console.log(res.data);
+    if (res.data.data.response.toLowerCase().includes("user wants to book a consultation call")) {
+      offerBooking();
+    } else {
+      addBotMessage(res.data.data.response);
+    }
+    
   };
 
   const handleQualificationResponse = (response: string) => {
@@ -141,8 +163,15 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
   };
 
   const handleServiceResponse = (response: string) => {
+    if (response === "Close Chat") {
+      setIsOpen(false);
+      trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
+      onClose();
+      return;
+    }
+
     if (response === "Book a Call") {
-      navigate("https://calendly.com/d/cqyy-j3g-6yg");
+      window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
       return;
     } else if (response === "Enter Email for More Info") {
       navigate("/layouts/get-in-touch");
@@ -196,21 +225,12 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       setIsEmailCapture(false);
       trackConversion('email_captured', {});
       
-      if (userSession.lastServiceViewed) {
-        const service = SIA_CONFIG.services.find(s => s.id === userSession.lastServiceViewed);
-        if (service) {
-          addBotMessage(`Great! I'll send you detailed information about our ${service.name} services. Would you like to:`, [
-            "Book Strategy Call",
-            "See More Services"
-          ]);
-        }
-      } else {
-        addBotMessage("Thanks! I'll send you our portfolio and proposal. Would you like to:", [
-          "Book Strategy Call",
-          "See More Services"
-        ]);
-      }
+      // Close chat after successful email capture
+      setIsOpen(false);
+      trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
+      onClose();
     } else {
+      // Just show error message without additional prompts
       addBotMessage("Please enter a valid email address.");
     }
   };
@@ -246,7 +266,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
   const handleClose = () => {
     if (!userSession.email) {
       setIsEmailCapture(true);
-      addBotMessage(EMAIL_CAPTURE_PROMPTS.beforeExit);
+      addBotMessage(EMAIL_CAPTURE_PROMPTS.beforeExit, ["Close Chat"]);
       return;
     }
     setIsOpen(false);
@@ -279,14 +299,18 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
                 <div className="options-container">
                   {message.options.map((option, optIndex) => {
                     const handleClick = () => {
-                      if (option === "Book a Call") {
+                      if (option === "Close Chat") {
+                        setIsOpen(false);
+                        trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
+                        onClose();
+                      } else if (option === "Book a Call") {
                         window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
                       } else if (option === "Enter Email for More Info") {
                         navigate("/layouts/get-in-touch");
                       } else if (option === "See Portfolio") {
                         navigate("/layouts/our-work");
                       } else {
-                        handleUserResponse(option);
+                        handleUserResponse(option, false);
                       }
                     };
                     return (
@@ -328,7 +352,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
             if (e.key === 'Enter') {
               const input = e.target as HTMLInputElement;
               if (input.value.trim()) {
-                handleUserResponse(input.value.trim());
+                handleUserResponse(input.value.trim(), true);
                 input.value = '';
               }
             }
@@ -339,7 +363,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
           onClick={() => {
             const input = document.querySelector('.message-input') as HTMLInputElement;
             if (input.value.trim()) {
-              handleUserResponse(input.value.trim());
+              handleUserResponse(input.value.trim(), true);
               input.value = '';
             }
           }}

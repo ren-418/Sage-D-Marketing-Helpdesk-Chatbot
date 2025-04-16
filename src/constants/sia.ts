@@ -28,7 +28,7 @@ export const QUALIFICATION_FLOW = {
   },
   Q4: {
     question: "What's your monthly marketing budget?",
-    options: ["Under R5,000", "R5,000 – R20,000", "R20,000+"]
+    options: ["R5,000 – R20,000", "R20,000+"]
   }
 };
 

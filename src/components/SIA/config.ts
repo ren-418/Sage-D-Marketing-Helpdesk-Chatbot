@@ -126,7 +126,7 @@ export const QUALIFICATION_QUESTIONS = [
   },
   {
     question: "What's your monthly marketing budget?",
-    options: ["Under R5,000", "R5,000 – R20,000", "R20,000+"],
+    options: ["R5,000 – R20,000", "R20,000+"],
     key: "budget"
   }
 ];
