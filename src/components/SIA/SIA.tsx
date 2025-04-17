@@ -145,7 +145,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       return true;
     });
 
-    const serviceNames = suggestedServices.map(s => s.name);
+    const serviceNames = suggestedServices.map(s => s.name); 
     
     // First show service suggestions
     addBotMessage(
@@ -159,7 +159,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
         "You seem like a great fit for our services! Would you like to:",
         ["Book a Call", "Enter Email for More Info", "See Portfolio"]
       );
-    }, 1500);
+    }, 500);
   };
 
   const handleServiceResponse = (response: string) => {
