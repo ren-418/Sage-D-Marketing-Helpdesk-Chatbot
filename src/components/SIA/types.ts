@@ -12,14 +12,15 @@ export interface Message {
 export interface UserSession {
   id: string;
   lastInteraction: Date;
+  email?: string;
+  flowType?: 'service' | 'portfolio';
   qualification: {
     needs: string[];
     businessType: string;
     hasWebsite: string;
-    websiteSatisfaction?: string;
+    websiteSatisfaction: string;
     budget: string;
   };
-  email?: string;
   lastServiceViewed?: string;
 }
 

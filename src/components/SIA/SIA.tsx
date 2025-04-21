@@ -67,6 +67,16 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
         await handleCustomChat(response);
       } else if (isEmailCapture) {
         await handleEmailCapture(response);
+      } else if (response === "Explore Services") {
+        // Start qualification flow
+        setUserSession(prev => ({ ...prev, flowType: 'service' }));
+        setCurrentQualificationStep(0);
+        const firstQuestion = QUALIFICATION_QUESTIONS[0];
+        addBotMessage(firstQuestion.question, firstQuestion.options);
+      } else if (response === "See Our Work") {
+        // Start portfolio flow
+        setUserSession(prev => ({ ...prev, flowType: 'portfolio' }));
+        showPortfolio();
       } else if (currentQualificationStep < QUALIFICATION_QUESTIONS.length) {
         await new Promise(resolve => setTimeout(resolve, 800));
         handleQualificationResponse(response);
@@ -150,7 +160,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     // First show service suggestions
     addBotMessage(
       `Based on your needs, I recommend these services: ${serviceNames.join(', ')}.`,
-      serviceNames
+      
     );
 
     // After a short delay, show the next steps
@@ -174,7 +184,8 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
       return;
     } else if (response === "Enter Email for More Info") {
-      navigate("/layouts/get-in-touch");
+      setIsEmailCapture(true);
+      addBotMessage("Please enter your email address, and we'll send you detailed information about our services.");
       return;
     } else if (response === "See Portfolio") {
       navigate("/layouts/our-work");
@@ -185,32 +196,21 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     
     if (service) {
       setUserSession(prev => ({ ...prev, lastServiceViewed: service.id }));
-      showServiceDetails(service);
-      trackConversion('service_selected', service.id);
-    } else if (response.toLowerCase().includes('book') || response.toLowerCase().includes('schedule')) {
-      offerBooking();
-      trackConversion('booking_initiated', {});
-    } else if (response.toLowerCase().includes('portfolio') || response.toLowerCase().includes('work')) {
-      showPortfolio();
-      trackChatEvent('portfolio_view', {});
-    } else if (response.toLowerCase().includes('case study') || response.toLowerCase().includes('results')) {
-      showCaseStudies();
-      trackChatEvent('case_study_view', {});
-    } else {
-      // If we don't understand the response, show qualification-based options
-      if (currentQualificationStep >= QUALIFICATION_QUESTIONS.length) {
-        addBotMessage("I'm not sure I understand. Would you like to:", [
-          "Book a Call",
-          "Enter Email for More Info",
-          "See Portfolio"
-        ]);
+      if (userSession.flowType === 'portfolio') {
+        // Portfolio flow - show portfolio details
+        showPortfolioDetails(service);
       } else {
-        addBotMessage("I'm not sure I understand. Would you like to:", [
-          "Explore Services",
-          "See Our Work",
-          "Book Strategy Call"
-        ]);
+        // Service exploration flow - show service details
+        showServiceDetails(service);
       }
+      trackConversion('service_selected', service.id);
+    } else {
+      // Show final options
+      addBotMessage("Would you like to:", [
+        "Book a Call",
+        "Enter Email for More Info",
+        "See Portfolio"
+      ]);
     }
   };
 
@@ -235,31 +235,84 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     }
   };
 
-  const showServiceDetails = (service: Service) => {
+  const showPortfolio = () => {
     addBotMessage(
-      `${service.prompts.initial}\n\n${service.prompts.followUp}`,
-      ["See Portfolio", "Book a Call", "Enter Email for More Info"]
+      "Here's a showcase of our best work. Which area would you like to explore?",
+      SIA_CONFIG.services.map(s => s.name)
     );
+  };
+
+  const showPortfolioDetails = (service: Service) => {
+    // Show portfolio-specific message
+    addBotMessage(
+      `Here are some of our best ${service.name} projects. Would you like to:`,
+      ["View More Projects", "Book a Call", "Enter Email for More Info"]
+    );
+  };
+
+  const showServiceDetails = (service: Service) => {
+    // Show service-specific message
+    addBotMessage(service.prompts.initial);
+    
+    // After a short delay, show service-specific options
+    setTimeout(() => {
+      switch (service.id) {
+        case 'strategy':
+          addBotMessage("Here's what we can do for your digital strategy:", [
+            "View Strategy Case Studies",
+            "Get a Free Strategy Audit",
+            "Book Strategy Consultation"
+          ]);
+          break;
+        case 'branding':
+          addBotMessage("Let's build your brand identity:", [
+            "View Branding Portfolio",
+            "Get Brand Guidelines Sample",
+            "Book Brand Strategy Session"
+          ]);
+          break;
+        case 'web':
+          addBotMessage("Here's how we can help with your website:", [
+            "View Web Development Projects",
+            "Get Website Audit",
+            "Book Web Development Consultation"
+          ]);
+          break;
+        case 'seo':
+          addBotMessage("Let's improve your search rankings:", [
+            "View SEO Case Studies",
+            "Get Free SEO Audit",
+            "Book SEO Strategy Call"
+          ]);
+          break;
+        case 'social':
+          addBotMessage("Let's boost your social media presence:", [
+            "View Social Media Campaigns",
+            "Get Content Strategy Sample",
+            "Book Social Media Consultation"
+          ]);
+          break;
+        case 'paid':
+          addBotMessage("Let's optimize your ad campaigns:", [
+            "View Paid Media Results",
+            "Get Ad Performance Audit",
+            "Book Paid Media Strategy Call"
+          ]);
+          break;
+        default:
+          addBotMessage("Would you like to:", [
+            "Book a Call",
+            "Enter Email for More Info",
+            "See Portfolio"
+          ]);
+      }
+    }, 1000);
   };
 
   const offerBooking = () => {
     addBotMessage(
       "Ready to make moves? Let's schedule your strategy session.",
-      ["Book a Call", "Enter Email for More Info", "Maybe Later"]
-    );
-  };
-
-  const showPortfolio = () => {
-    addBotMessage(
-      "Check out our latest work. Which area interests you most?",
-      SIA_CONFIG.services.map(s => s.name)
-    );
-  };
-
-  const showCaseStudies = () => {
-    addBotMessage(
-      "Here are some of our success stories. Which service would you like to learn more about?",
-      SIA_CONFIG.services.map(s => s.name)
+      ["Book a Call", "Enter Email for More Info", "See Our Work"]
     );
   };
 

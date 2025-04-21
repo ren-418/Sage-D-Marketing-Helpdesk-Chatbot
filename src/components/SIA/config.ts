@@ -35,8 +35,8 @@ export const SIA_CONFIG: SIAConfig = {
       caseStudyLink: "/case-studies/strategy",
       bookingLink: "https://calendly.com/saged/strategy",
       prompts: {
-        initial: "You're in the right place. Our digital strategies are like cheat codes for growth. Want to see how we'd tailor yours?",
-        followUp: "We've helped businesses like yours achieve [X]% growth. Ready to see how we can do the same for you?"
+        initial: "You're in the right place. Our digital strategies are like cheat codes for growth. We analyze your business, identify opportunities, and create a roadmap for success. Want to see how we'd tailor yours?",
+        followUp: "We've helped businesses like yours achieve [X]% growth through strategic planning and execution. Ready to see how we can do the same for you?"
       }
     },
     {
@@ -47,8 +47,8 @@ export const SIA_CONFIG: SIAConfig = {
       caseStudyLink: "/case-studies/branding",
       bookingLink: "https://calendly.com/saged/branding",
       prompts: {
-        initial: "Absolutely. Logos, guidelines, brand stories—we turn businesses into icons. Want to see what we've done for bold brands like yours?",
-        followUp: "Your brand deserves to be unforgettable. Let's make it happen."
+        initial: "Absolutely. We create memorable brand identities that resonate with your audience. From logos to brand guidelines, we ensure your brand stands out in the market. Want to see what we've done for bold brands like yours?",
+        followUp: "Your brand deserves to be unforgettable. Let's create a visual identity that captures your essence and connects with your audience."
       }
     },
     {
@@ -59,8 +59,8 @@ export const SIA_CONFIG: SIAConfig = {
       caseStudyLink: "/case-studies/web",
       bookingLink: "https://calendly.com/saged/web",
       prompts: {
-        initial: "A sexy website is just step one—we build sites that convert. Need eCommerce, a portfolio, or landing pages?",
-        followUp: "Let's architect a website that turns visitors into customers."
+        initial: "A beautiful website is just the beginning—we build sites that convert visitors into customers. Whether you need eCommerce, a portfolio, or landing pages, we've got you covered. Want to see our latest projects?",
+        followUp: "Let's architect a website that not only looks stunning but also drives real business results."
       }
     },
     {
@@ -71,8 +71,8 @@ export const SIA_CONFIG: SIAConfig = {
       caseStudyLink: "/case-studies/seo",
       bookingLink: "https://calendly.com/saged/seo",
       prompts: {
-        initial: "100%. We don't just boost rankings—we drive results. Want a free audit of your current SEO setup?",
-        followUp: "Let's get your business ranking where it belongs—at the top."
+        initial: "We don't just boost rankings—we drive qualified traffic that converts. Our SEO strategies are data-driven and results-focused. Want a free audit of your current SEO setup?",
+        followUp: "Let's get your business ranking where it belongs—at the top of search results."
       }
     },
     {
@@ -83,8 +83,8 @@ export const SIA_CONFIG: SIAConfig = {
       caseStudyLink: "/case-studies/social",
       bookingLink: "https://calendly.com/saged/social",
       prompts: {
-        initial: "From scroll-stopping reels to feed curation, we keep your brand top of mind. Want to see our best performing campaigns?",
-        followUp: "Let's create content that makes your audience stop scrolling."
+        initial: "From scroll-stopping reels to strategic feed curation, we create content that keeps your brand top of mind. Our social media strategies drive engagement and growth. Want to see our best performing campaigns?",
+        followUp: "Let's create content that makes your audience stop scrolling and take action."
       }
     },
     {
@@ -95,8 +95,8 @@ export const SIA_CONFIG: SIAConfig = {
       caseStudyLink: "/case-studies/paid",
       bookingLink: "https://calendly.com/saged/paid",
       prompts: {
-        initial: "Then you haven't tried *us*. Our paid ads team crushes CPMs and maximizes ROI. Want a peek under the hood?",
-        followUp: "Let's turn your ad spend into real results."
+        initial: "Our paid ads team crushes CPMs and maximizes ROI through strategic targeting and creative optimization. Want to see how we've helped businesses like yours achieve their goals?",
+        followUp: "Let's turn your ad spend into real results and measurable growth."
       }
     }
   ]
@@ -134,7 +134,7 @@ export const QUALIFICATION_QUESTIONS = [
 export const PAGE_SPECIFIC_BEHAVIOR = {
   home: {
     initialMessage: "Hey there! I'm SIA, your SAGE-D Interactive Assistant. What brings you to SAGED today?",
-    actions: ["Explore Services", "See Our Work", "Book Strategy Call"]
+    actions: ["Explore Services", "See Our Work",]
   },
   services: {
     initialMessage: "Looking to level up your digital game? I'm SIA, and I'm here to help you find the perfect service.",
