@@ -133,11 +133,11 @@ export const QUALIFICATION_QUESTIONS = [
 
 export const PAGE_SPECIFIC_BEHAVIOR = {
   home: {
-    initialMessage: "Hey there! I'm SIA, your SAGE-D Interactive Assistant. What brings you to SAGED today?",
+    initialMessage: "Hi! I'm Sia. What brings you to SAGE-D today?",
     actions: ["Explore Services", "See Our Work",]
   },
   services: {
-    initialMessage: "Looking to level up your digital game? I'm SIA, and I'm here to help you find the perfect service.",
+    initialMessage: "Looking to level up your digital game? I'm Sia, and I'm here to help you find the perfect service.",
     actions: ["Strategy", "Branding", "Web Development", "SEO", "Social Media", "Paid Media"]
   },
   caseStudies: {

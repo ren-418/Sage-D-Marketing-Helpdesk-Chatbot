@@ -104,7 +104,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     } else {
       addBotMessage(res.data.data.response);
     }
-    
+
   };
 
   const handleQualificationResponse = (response: string) => {
@@ -130,7 +130,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       addBotMessage(nextQuestion.question, nextQuestion.options);
     } else if (currentQualificationStep < QUALIFICATION_QUESTIONS.length - 1) {
       setCurrentQualificationStep(prev => prev + 1);
-      const nextVisibleQuestion = QUALIFICATION_QUESTIONS.find((q, i) => 
+      const nextVisibleQuestion = QUALIFICATION_QUESTIONS.find((q, i) =>
         i > currentQualificationStep && (!q.showIf || q.showIf(updatedSession))
       );
       if (nextVisibleQuestion) {
@@ -145,29 +145,29 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
 
   const handleQualificationComplete = (session: UserSession) => {
     trackConversion('qualification_complete', session.qualification);
-    
+
     // Suggest services based on qualification
     const suggestedServices = SIA_CONFIG.services.filter(service => {
-      if (session.qualification.needs.includes('website') || 
-          session.qualification.websiteSatisfaction === 'No') {
+      if (session.qualification.needs.includes('website') ||
+        session.qualification.websiteSatisfaction === 'No') {
         return service.id === 'web';
       }
       return true;
     });
 
-    const serviceNames = suggestedServices.map(s => s.name); 
-    
+    const serviceNames = suggestedServices.map(s => s.name);
+
     // First show service suggestions
     addBotMessage(
-      `Based on your needs, I recommend these services: ${serviceNames.join(', ')}.`,
-      
+      `Based on the available options, one of these services would be feasible for you: ${serviceNames.join(', ')}.`,
+
     );
 
     // After a short delay, show the next steps
     setTimeout(() => {
       addBotMessage(
         "You seem like a great fit for our services! Would you like to:",
-        ["Book a Call", "Enter Email for More Info", "See Portfolio"]
+        ["Book a Call", "Fill Our Contact Form", "See Portfolio"]
       );
     }, 500);
   };
@@ -183,7 +183,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     if (response === "Book a Call") {
       window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
       return;
-    } else if (response === "Enter Email for More Info") {
+    } else if (response === "Fill Our Contact Form") {
       setIsEmailCapture(true);
       addBotMessage("Please enter your email address, and we'll send you detailed information about our services.");
       return;
@@ -193,7 +193,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     }
 
     const service = SIA_CONFIG.services.find(s => s.name.toLowerCase() === response.toLowerCase());
-    
+
     if (service) {
       setUserSession(prev => ({ ...prev, lastServiceViewed: service.id }));
       if (userSession.flowType === 'portfolio') {
@@ -208,7 +208,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       // Show final options
       addBotMessage("Would you like to:", [
         "Book a Call",
-        "Enter Email for More Info",
+        "Fill Our Contact Form",
         "See Portfolio"
       ]);
     }
@@ -224,7 +224,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       updateSession(updatedSession);
       setIsEmailCapture(false);
       trackConversion('email_captured', {});
-      
+
       // Close chat after successful email capture
       setIsOpen(false);
       trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
@@ -246,73 +246,27 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     // Show portfolio-specific message
     addBotMessage(
       `Here are some of our best ${service.name} projects. Would you like to:`,
-      ["View More Projects", "Book a Call", "Enter Email for More Info"]
+      ["View More Projects", "Book a Call", "Fill Our Contact Form"]
     );
   };
 
   const showServiceDetails = (service: Service) => {
     // Show service-specific message
     addBotMessage(service.prompts.initial);
-    
-    // After a short delay, show service-specific options
+
     setTimeout(() => {
-      switch (service.id) {
-        case 'strategy':
-          addBotMessage("Here's what we can do for your digital strategy:", [
-            "View Strategy Case Studies",
-            "Get a Free Strategy Audit",
-            "Book Strategy Consultation"
-          ]);
-          break;
-        case 'branding':
-          addBotMessage("Let's build your brand identity:", [
-            "View Branding Portfolio",
-            "Get Brand Guidelines Sample",
-            "Book Brand Strategy Session"
-          ]);
-          break;
-        case 'web':
-          addBotMessage("Here's how we can help with your website:", [
-            "View Web Development Projects",
-            "Get Website Audit",
-            "Book Web Development Consultation"
-          ]);
-          break;
-        case 'seo':
-          addBotMessage("Let's improve your search rankings:", [
-            "View SEO Case Studies",
-            "Get Free SEO Audit",
-            "Book SEO Strategy Call"
-          ]);
-          break;
-        case 'social':
-          addBotMessage("Let's boost your social media presence:", [
-            "View Social Media Campaigns",
-            "Get Content Strategy Sample",
-            "Book Social Media Consultation"
-          ]);
-          break;
-        case 'paid':
-          addBotMessage("Let's optimize your ad campaigns:", [
-            "View Paid Media Results",
-            "Get Ad Performance Audit",
-            "Book Paid Media Strategy Call"
-          ]);
-          break;
-        default:
-          addBotMessage("Would you like to:", [
-            "Book a Call",
-            "Enter Email for More Info",
-            "See Portfolio"
-          ]);
-      }
+      addBotMessage("Would you like to:", [
+        "Book a Call",
+        "Fill Our Contact Form",
+        "See Portfolio"
+      ]);
     }, 1000);
   };
 
   const offerBooking = () => {
     addBotMessage(
       "Ready to make moves? Let's schedule your strategy session.",
-      ["Book a Call", "Enter Email for More Info", "See Our Work"]
+      ["Book a Call", "Fill Our Contact Form", "See Portfolio"]
     );
   };
 
@@ -341,7 +295,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
         </div>
         <button onClick={handleClose} className="close-button">×</button>
       </div>
-      
+
       <div className="messages-container">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.type}`}>
@@ -358,7 +312,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
                         onClose();
                       } else if (option === "Book a Call") {
                         window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
-                      } else if (option === "Enter Email for More Info") {
+                      } else if (option === "Fill Our Contact Form") {
                         navigate("/layouts/get-in-touch");
                       } else if (option === "See Portfolio") {
                         navigate("/layouts/our-work");
@@ -411,7 +365,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
             }
           }}
         />
-        <button 
+        <button
           className="send-button"
           onClick={() => {
             const input = document.querySelector('.message-input') as HTMLInputElement;
