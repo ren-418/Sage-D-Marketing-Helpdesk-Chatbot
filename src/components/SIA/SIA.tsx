@@ -184,7 +184,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     }
 
     if (response === "Book a Call") {
-      window.open("https://calendly.com/mrsteevtvw418/30min", "_blank");
+      window.open("https://calendly.com/mrsteevtvw418/new-meeting", "_blank");
       return;
     } else if (response === "Fill Our Contact Form") {
       setIsEmailCapture(true);
@@ -316,7 +316,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
                         trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
                         onClose();
                       } else if (option === "Book a Call") {
-                        window.open("https://calendly.com/mrsteevtvw418/30min", "_blank");
+                        window.open("https://calendly.com/mrsteevtvw418/new-meeting", "_blank");
                       } else if (option === "Fill Our Contact Form") {
                         navigate("/layouts/get-in-touch");
                       } else if (option === "See Portfolio") {

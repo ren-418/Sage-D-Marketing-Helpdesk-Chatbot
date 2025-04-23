@@ -61,7 +61,7 @@ const OurWork = () => {
                     <div className="flex flex-col gap-10 items-start">
                         <div className="text-white md:text-6xl text-4xl font-medium title">Let's Get You <span className="text-[#00ff26]">Started!</span></div>
                         <div className="w-full flex items-center justify-start ">
-                            <Link to="https://calendly.com/mrsteevtvw418/30min" target="_blank" className="bg-[#00ff26] hover:text-[#1D1D1B] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+                            <Link to="https://calendly.com/mrsteevtvw418/new-meeting" target="_blank" className="bg-[#00ff26] hover:text-[#1D1D1B] text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                                 <p>Book a call</p>
                                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
                             </Link>
