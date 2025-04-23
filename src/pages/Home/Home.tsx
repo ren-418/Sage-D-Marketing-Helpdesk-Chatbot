@@ -181,7 +181,7 @@ export default function Home({ }) {
         <h1 className="text-white md:text-6xl text-4xl  title ">We Are Shaping Concepts <br className="hidden md:block" />Into Digital Innovations</h1>
         <p className="text-white text-lg md:text-xl ">We are a passionate collective of creatives, designers, and strategists dedicated to<br className="hidden md:block" /> shaping remarkable brand experiences.</p>
         <div>
-          <Link to="https://calendly.com/d/cqyy-j3g-6yg" className="bg-[#00ff26] text-[#1D1D1B]  flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold hover:text-black" target="_blank">
+          <Link to="https://calendly.com/mrsteevtvw418/30min" className="bg-[#00ff26] text-[#1D1D1B]  flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold hover:text-black" target="_blank">
             <p>Book a call</p>
             <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
           </Link>
@@ -359,7 +359,7 @@ export default function Home({ }) {
           <div className="flex flex-col gap-10 items-start">
             <div className="text-white md:text-6xl text-4xl font-medium title">Let's Get You <span className="text-[#00ff26]">Started!</span></div>
             <div className="w-full flex items-center justify-start ">
-              <Link to="https://calendly.com/d/cqyy-j3g-6yg" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
+              <Link to="https://calendly.com/mrsteevtvw418/30min" target="_blank" className="bg-[#00ff26] text-[#1D1D1B] hover:text-[#1D1D1B] text-sm md:text-base flex gap-1 px-6 py-4 cursor-pointer rounded-xl font-semibold ">
                 <p>Book a call</p>
                 <img src={arrowIcon} alt="icon" width={20} className="font-semibold" />
               </Link>

@@ -6,6 +6,9 @@ import { SIA_CONFIG, QUALIFICATION_QUESTIONS, PAGE_SPECIFIC_BEHAVIOR, EMAIL_CAPT
 import { trackChatEvent, trackConversion } from '../../services/analytics';
 import { loadSession, updateSession } from '../../services/session';
 import './SIA.css';
+
+import aiAvatar from '../../assets/images/ai-avatar.png';
+
 interface SIAProps {
   onClose: () => void;
   pageContext?: PageContext;
@@ -181,7 +184,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     }
 
     if (response === "Book a Call") {
-      window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
+      window.open("https://calendly.com/mrsteevtvw418/30min", "_blank");
       return;
     } else if (response === "Fill Our Contact Form") {
       setIsEmailCapture(true);
@@ -287,7 +290,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
     <div className={`sia-container ${isOpen ? 'open' : ''}`}>
       <div className="sia-header">
         <div className="sia-title">
-          <span className="sia-avatar">{SIA_CONFIG.avatar}</span>
+          <img src={aiAvatar} alt="SIA Avatar" className="sia-avatar" />
           <div className="sia-title-text">
             <h3>{SIA_CONFIG.name}</h3>
             <span className="sia-full-name">{SIA_CONFIG.fullName}</span>
@@ -299,7 +302,9 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
       <div className="messages-container">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.type}`}>
-            {message.type === 'bot' && <div className="bot-avatar">{SIA_CONFIG.avatar}</div>}
+            {message.type === 'bot' && (
+              <img src={aiAvatar} alt="SIA Avatar" className="bot-avatar" />
+            )}
             <div className="message-content">
               {message.content}
               {message.options && (
@@ -311,7 +316,7 @@ const SIA: React.FC<SIAProps> = ({ onClose, pageContext = { pageType: 'home' } }
                         trackChatEvent('close', { sessionDuration: Date.now() - userSession.lastInteraction.getTime() });
                         onClose();
                       } else if (option === "Book a Call") {
-                        window.open("https://calendly.com/d/cqyy-j3g-6yg", "_blank");
+                        window.open("https://calendly.com/mrsteevtvw418/30min", "_blank");
                       } else if (option === "Fill Our Contact Form") {
                         navigate("/layouts/get-in-touch");
                       } else if (option === "See Portfolio") {
